@@ -9,7 +9,7 @@ layout: null
     <channel>
         <title>Friday Night Comedy</title>
         <link>{{ '/' | absolute_url }}</link>
-        {%- for episode in episodes %}
+        {%- for episode in episodes -%}
         <item>
             <title>{{ episode.name}}</title>
             <itunes:explicit>Yes</itunes:explicit>
@@ -17,6 +17,6 @@ layout: null
             <itunes:duration>100</itunes:duration>
             <enclosure url='{{ episode.path | absolute_url }}' length='100'/>
         </item>
-        {% endfor %}
+        {%- endfor -%}
     </channel>
 </rss>
