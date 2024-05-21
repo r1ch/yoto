@@ -7,6 +7,7 @@ layout: null
     <channel>
         <title>Friday Night Comedy</title>
         <link>{{ '/' | absolute_url }}</link>
+        <itunes:image href='{{ "/logo.jpeg" | absolute_url }}'/>
         {%- for episode in episodes -%}
         <item>
             <title>{{ episode.name}}</title>
