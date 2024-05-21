@@ -17,7 +17,7 @@ layout: null
             <itunes:explicit>Yes</itunes:explicit>
             <link>{{ episode.path | absolute_url }}</link>
             <itunes:duration>100</itunes:duration>
-            <enclosure url='{{ episode.path | absolute_url }}' length='100' type='audio/x-m4a'/>
+            <enclosure url='{{ episode.path | absolute_url }}' length='100' type='audio/mpeg'/>
             <guid>{{ episode.path | absolute_url }}</guid>
             <pubDate>{{ episode.modified_time | date_to_rfc822 }}</pubDate>
         </item>
