@@ -19,7 +19,7 @@ layout: null
             <itunes:duration>100</itunes:duration>
             <enclosure url='{{ episode.path | absolute_url }}' length='100' type='audio/x-m4a'>
             <guid>{{ episode.path | absolute_url }}</guid>
-            <pubDate>{{ file.modified_time | date_to_rfc822 }}</pubDate>
+            <pubDate>{{ episode.modified_time | date_to_rfc822 }}</pubDate>
         </item>
         {%- endfor -%}
     </channel>
