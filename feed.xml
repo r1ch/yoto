@@ -8,7 +8,8 @@ layout: null
         <title>Friday Night Comedy</title>
         <link>{{ '/' | absolute_url }}</link>
         <itunes:image href='{{ "/logo.jpeg" | absolute_url }}'/>
-        <itunes:category text='Comedy'>
+        <itunes:category text='Comedy' />
+        <itunes:explicit>Yes</itunes:explicit>
         <language>en</language>
         {%- for episode in episodes -%}
         <item>
