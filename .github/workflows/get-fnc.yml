@@ -60,7 +60,7 @@ jobs:
       - name: Commit downloads
         run: |
           ls
-          git add *.m4a
+          git add *.mp3
           git config --global user.name 'Poddy'
           git config --global user.email 'poddy@users.noreply.github.com'
           git commit -am "Friday Night Comedy"
