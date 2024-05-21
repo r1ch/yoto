@@ -55,6 +55,7 @@ jobs:
 
       - name: Get some podcasts
         run: |
+          cd _episodes
           get_iplayer --pid=p0hwtjb3
 
       - name: Commit downloads
