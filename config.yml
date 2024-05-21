@@ -1,3 +1,5 @@
-collections:
-  episodes:
-    output: false
+defaults:
+  - scope:
+      path: "episodes"
+    values:
+      episode: true
