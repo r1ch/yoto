@@ -55,9 +55,7 @@ jobs:
 
       - name: Get some podcasts
         run: |
-          get_iplayer --type=radio --channel="Radio 4$" "Friday Night Comedy from BBC Radio 4"
-          get_iplayer --type=radio --channel="Radio 4$" "No Such Thing As A Fish"
-          get_iplayer --pid=p02pc9pj --pid-recursive
+          get_iplayer --pid=p0hwtjb3
 
       - name: Commit downloads
         run: |
