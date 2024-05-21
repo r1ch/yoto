@@ -57,3 +57,9 @@ jobs:
         run: |
           wget https://raw.githubusercontent.com/get-iplayer/get_iplayer/master/get_iplayer
           install -m 755 ./get_iplayer /usr/local/bin
+
+      - name: Get some podcasts
+        run: |
+          get_iplayer --type=radio --channel="Radio 4$" "Friday Night"
+
+
