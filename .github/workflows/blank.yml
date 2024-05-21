@@ -34,5 +34,12 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          perl -v
-          cpan -i App::cpanminus
+
+      - name: Install cpanm and multiple modules
+        run: |
+          curl -L https://cpanmin.us | perl - App::cpanminus
+          cpanm --notest LWP
+          cpanm --notest LWP::Protocol::https
+          cpanm --notest Mojolicious
+          cpanm --notest XML::LibXML
+          cpanm --notest CGI
