@@ -60,6 +60,8 @@ jobs:
 
       - name: Get some podcasts
         run: |
-          get_iplayer --type=radio --channel="Radio 4$" "Friday Night"
+          get_iplayer --type=radio --channel="Radio 4$" "Friday Night Comedy from BBC Radio 4"
+          get_iplayer --type=radio --channel="Radio 4$" "No Such Thing As A Fish"
+          
 
 
