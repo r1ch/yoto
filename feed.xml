@@ -16,6 +16,7 @@ layout: null
 {% assign image_files = site.static_files %}
 {% for myimage in image_files %}
   {{ myimage.path }}
+  {{ myimage.episode }}
 {% endfor %}
 
 <rss version='2.0' xmlns:content='http://purl.org/rss/1.0/modules/content/' xmlns:itunes='http://www.itunes.com/dtds/podcast-1.0.dtd'>
