@@ -5,13 +5,13 @@ layout: null
 {%- assign episodes = site.static_files | where: "episode", true -%}
 {{site.static_files}}
 {{episodes}}
-{{% for episode in episodes %}}
-{{episode}}
-{{% endfor %}}
+{{%- for episode in episodes -%}}
+{{episode.name}}
+{{%- endfor -%}}
 
-{{% for s in site.static_files %}}
-{{s}} -a
-{{% endfor %}}
+{{%- for s in site.static_files -%}}
+{{s.path}} -a
+{{%- endfor -%}}
 
 <rss version='2.0' xmlns:content='http://purl.org/rss/1.0/modules/content/' xmlns:itunes='http://www.itunes.com/dtds/podcast-1.0.dtd'>
     <channel>
