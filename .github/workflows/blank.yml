@@ -30,6 +30,9 @@ jobs:
         run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
+      - name: install ffmpeg + Atomic Parsley
+        run: apt install atomicparsley ffmpeg
+      
       - name: setup locallib
         run: |
           PERL_LOCAL_LIB_ROOT="$HOME/perl5"
@@ -42,7 +45,6 @@ jobs:
       - name: install cpanm
         run: cpan App::cpanminus
 
-
       - name: Install modules
         run: |
           cpanm --notest LWP
@@ -50,3 +52,4 @@ jobs:
           cpanm --notest Mojolicious
           cpanm --notest XML::LibXML
           cpanm --notest CGI
+
