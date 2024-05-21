@@ -31,7 +31,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: install ffmpeg + Atomic Parsley
-        run: apt install atomicparsley ffmpeg
+        run: sudo apt install atomicparsley ffmpeg
       
       - name: setup locallib
         run: |
