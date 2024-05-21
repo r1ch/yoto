@@ -53,3 +53,7 @@ jobs:
           cpanm --notest XML::LibXML
           cpanm --notest CGI
 
+      - name: Get-Iplayer installation
+        run: |
+          wget https://raw.githubusercontent.com/get-iplayer/get_iplayer/master/get_iplayer
+          install -m 755 ./get_iplayer /usr/local/bin
