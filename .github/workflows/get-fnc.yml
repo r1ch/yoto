@@ -56,7 +56,7 @@ jobs:
           cd episodes
           rm *
           get_iplayer --pid=p02pc9pj --pid-recursive-list
-          get_iplayer --file-prefix="<firstbcastdate>" --pid=$(get_iplayer --pid=p02pc9pj --pid-recursive-list | tail -2 | head -1 | grep -oE '[^ ]+$')
+          get_iplayer --pid=$(get_iplayer --pid=p02pc9pj --pid-recursive-list | tail -2 | head -1 | grep -oE '[^ ]+$')
           for f in *.m4a; do ffmpeg -i "$f" -codec:v copy -codec:a libmp3lame -q:a 2 ./"${f%.m4a}.mp3"; done
 
       - name: Commit downloads
