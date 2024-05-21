@@ -7,11 +7,11 @@ layout: null
 {{episodes}}
 {{% for episode in episodes %}}
 {{episode}}
-{{% endfor %}
+{{% endfor %}}
 
 {{% for s in site.static_files %}}
 {{s}} -a
-{{% endfor %}
+{{% endfor %}}
 
 <rss version='2.0' xmlns:content='http://purl.org/rss/1.0/modules/content/' xmlns:itunes='http://www.itunes.com/dtds/podcast-1.0.dtd'>
     <channel>
