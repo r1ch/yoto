@@ -4,11 +4,6 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -62,7 +57,14 @@ jobs:
         run: |
           get_iplayer --type=radio --channel="Radio 4$" "Friday Night Comedy from BBC Radio 4"
           get_iplayer --type=radio --channel="Radio 4$" "No Such Thing As A Fish"
-          get_iplayer --pid=p02pc9pj
+          get_iplayer --pid=p02pc9pj --pid-recursive
+
+      - name: Commit downloads
+        run: |
+          git config --global user.name 'Poddy'
+          git config --global user.email 'poddy@users.noreply.github.com'
+          git commit -am "Automated report"
+          git push
           
 
 
