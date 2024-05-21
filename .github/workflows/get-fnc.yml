@@ -56,7 +56,7 @@ jobs:
       - name: Get some podcasts
         run: |
           cd episodes
-          get_iplayer --pid=p0hwtjb3
+          get_iplayer --pid=p02pc9pj --available-since=168 --pid-recursive
 
       - name: Commit downloads
         run: |
