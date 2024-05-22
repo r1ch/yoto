@@ -55,8 +55,8 @@ jobs:
         run: |
           cd episodes
           rm *
-          get_iplayer --pid=p02pc9pj --pid-recursive-list
-          get_iplayer --file-prefix="<name>" --pid=$(get_iplayer --pid=p02pc9pj --pid-recursive-list | tail -2 | head -1 | grep -oE '[^ ]+$')
+          get_iplayer --file-prefix="<pid>" --pid=$(get_iplayer --pid=p02pc9pj --pid-recursive-list | tail -2 | head -1 | grep -oE '[^ ]+$')
+          get_iplayer --file-prefix="<pid>" --pid=$(get_iplayer --pid=p0gwnyjd --pid-recursive-list | tail -2 | head -1 | grep -oE '[^ ]+$')
           for f in *.m4a; do ffmpeg -i "$f" -codec:v copy -codec:a libmp3lame -q:a 2 ./"${f%.m4a}.mp3"; done
 
       - name: Commit downloads
@@ -65,7 +65,7 @@ jobs:
           git add *.mp3
           git config --global user.name 'Poddy'
           git config --global user.email 'poddy@users.noreply.github.com'
-          git commit -am "Friday Night Comedy"
+          git commit -am "Pod grab"
           git push
           
 
