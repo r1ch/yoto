@@ -24,7 +24,9 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: install ffmpeg + Atomic Parsley
-        run: sudo apt install atomicparsley ffmpeg --fix-missing
+        run: |
+          sudo apt-get update
+          sudo apt install atomicparsley ffmpeg --fix-missing
       
       - name: setup locallib
         run: |
