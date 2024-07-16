@@ -1,1 +1,31 @@
+name: Get Friday Night Comedy
 
+# Controls when the workflow will run
+on:
+  schedule:
+    - cron: '00 20 * * 5'
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install needle
+
+      - name: Run downloader
+        run: node index.js
+    
