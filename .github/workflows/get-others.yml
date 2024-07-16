@@ -28,4 +28,13 @@ jobs:
 
       - name: Run downloader
         run: node index.js
+
+     - name: Commit downloads
+        run: |
+          ls
+          git add *.mp3
+          git config --global user.name 'Poddy'
+          git config --global user.email 'poddy@users.noreply.github.com'
+          git commit -am "Pod grab"
+          git push
     
