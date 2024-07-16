@@ -28,7 +28,7 @@ jobs:
         run: npm install needle
 
       - name: Run downloader
-        run: node index.js
+        run: node /index.js
 
       - name: Commit downloads
         run: |
