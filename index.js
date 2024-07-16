@@ -25,7 +25,7 @@ const run = async()=>{
     const mediaURL = mediaItem.url ? mediaItem.url : mediaItem.attributes.url
     console.log(mediaURL)
     const stream = needle.get(mediaURL,{follow_max:100})
-    const out = fs.createWriteStream(f.short)
+    const out = fs.createWriteStream(`/{f.short}/latest.mp3`)
     console.log(`Readable ${f.short}`)
 
     stream
