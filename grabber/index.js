@@ -33,7 +33,7 @@ class Track {
 
 const run = async()=>{
   const t = new Track()
-  feeds.map(feed=>{
+  feeds.map(async feed=>{
     t.add()
     const f = feed
     const xml = await needle('get', f.url)
