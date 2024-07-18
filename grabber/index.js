@@ -16,19 +16,9 @@ const feeds = [
 ]
 
 class Track {
-  constructor(){
-    this.count=0;
-    console.log("Start")
-  }
-  add(){
-    this.count++
-    console.log(`Add ${this.count}`)
-  }
-  remove(){
-    this.count--
-    console.log(`Remove ${this.count}`)
-    if(this.count==0) process.exit(0)
-  }
+  constructor(){this.count=0;}
+  add(){this.count++}
+  remove(){if(this.--count==0) process.exit(0)}
 }
 
 const run = async()=>{
