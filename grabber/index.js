@@ -17,7 +17,7 @@ const feeds = [
 
 class Track {
   constructor(){
-    this.count 0;
+    this.count=0;
     console.log("Start")
   }
   add(){
