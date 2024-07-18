@@ -15,8 +15,26 @@ const feeds = [
   }
 ]
 
+class Track {
+  constructor(){
+    this.count 0;
+    console.log("Start")
+  }
+  add(){
+    this.count++
+    console.log(`Add ${this.count}`)
+  }
+  remove(){
+    this.count--
+    console.log(`Remove ${this.count}`)
+    if(this.count==0) process.exit(0)
+  }
+}
+
 const run = async()=>{
-  for(feed of feeds){
+  const t = new Track()
+  feeds.map(feed=>{
+    t.add()
     const f = feed
     const xml = await needle('get', f.url)
     const body = xml.body
@@ -29,7 +47,7 @@ const run = async()=>{
     const out = fs.createWriteStream(`${f.folder}/${f.name}`)
     console.log(`Readable ${f.title}`)
 
-    stream
+    return stream
     .on('readable',function(){
         let chunk;
         while(chunk = this.read()){
@@ -39,8 +57,9 @@ const run = async()=>{
     .on('done',function(err){
         console.log(`Did ${f.title}`)
         out.close()
+        t.remove()
     })
-  }
+  })
 }
 
 run()
