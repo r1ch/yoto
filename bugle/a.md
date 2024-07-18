@@ -1,1 +1,4 @@
-a
+---
+layout: feed
+title: Bugle
+---
