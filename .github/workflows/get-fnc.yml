@@ -56,7 +56,7 @@ jobs:
       - name: Get some podcasts
         run: |
           cd fnc
-          rm *
+          rm *.mp3
           get_iplayer --file-prefix="<pid>" --pid=$(get_iplayer --pid=p02pc9pj --pid-recursive-list | tail -2 | head -1 | grep -oE '[^ ]+$')
           for f in *.m4a; do ffmpeg -i "$f" -codec:v copy -codec:a libmp3lame -q:a 2 ./"${f%.m4a}.mp3"; done
 
