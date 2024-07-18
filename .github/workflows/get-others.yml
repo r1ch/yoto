@@ -26,7 +26,7 @@ jobs:
         run: |
           cd grabber
           npm i
-          node index.js
+          ls
 
       - name: Commit downloads
         run: |
