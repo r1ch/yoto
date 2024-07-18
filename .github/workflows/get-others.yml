@@ -29,7 +29,7 @@ jobs:
           ls
           npm -v
           npm i
-          ls
+          node index.js
 
       - name: Commit downloads
         run: |
