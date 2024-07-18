@@ -21,18 +21,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - name: List
-        run: ls
-          
-      - name: Install dependencies
-        run: npm install needle
 
       - name: Run downloader
         run: |
-          which node
-          ls
-          pwd
-          cat index.js
+          cd grabber
+          npm i
           node index.js
 
       - name: Commit downloads
