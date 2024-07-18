@@ -24,10 +24,6 @@ jobs:
 
       - name: Run downloader
         run: |
-          ls 
-          cd grabber
-          ls
-          npm -v
           npm i
           node index.js
 
