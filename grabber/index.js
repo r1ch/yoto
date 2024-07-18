@@ -4,11 +4,13 @@ const fs = require("fs")
 const feeds = [
   {
     title: "No Such Thing As A Fish",
-    short: "NSTAAF",
+    folder: "./nstaaf",
+    name: "nstaaf.mp3",
     url: "https://audioboom.com/channels/2399216.rss"
   },{
     title: "Bugle",
-    short: "Bugle",
+    folder: "./bugle",
+    name: "bugle.mp3",
     url: "https://feeds.acast.com/public/shows/5e7b777ba085cbe7192b0607"
   }
 ]
@@ -23,10 +25,9 @@ const run = async()=>{
          ?.children.find(x=>x.name=='item')
     const mediaItem = firstItem.children.find(x=> x.name == 'media:content' || x.name == 'enclosure')
     const mediaURL = mediaItem.url ? mediaItem.url : mediaItem.attributes.url
-    console.log(mediaURL)
     const stream = needle.get(mediaURL,{follow_max:100})
-    const out = fs.createWriteStream(f.short)
-    console.log(`Readable ${f.short}`)
+    const out = fs.createWriteStream(`${f.folder}/${f.name}`)
+    console.log(`Readable ${f.title}`)
 
     stream
     .on('readable',function(){
@@ -36,7 +37,7 @@ const run = async()=>{
         }
     })
     .on('done',function(err){
-        console.log(`Did ${f.short}`)
+        console.log(`Did ${f.title}`)
         out.close()
     })
   }
