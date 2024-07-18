@@ -32,7 +32,8 @@ jobs:
           which node
           ls
           pwd
-          node /index.js
+          cat index.js
+          node index.js
 
       - name: Commit downloads
         run: |
