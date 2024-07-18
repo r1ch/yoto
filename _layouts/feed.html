@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 {{site.static_files | jsonify}}
-{%- assign episodes = site.static_files | where: "extname", ".mp3" | where_exp: "file" "file.path contains page.dir" -%}
+{%- assign episodes = site.static_files | where: "extname", ".mp3" | where_exp: "file", "file.path contains page.dir" -%}
 <rss version='2.0' xmlns:content='http://purl.org/rss/1.0/modules/content/' xmlns:itunes='http://www.itunes.com/dtds/podcast-1.0.dtd'>
     <channel>
         <title>{{page.title}}</title>
