@@ -3,13 +3,13 @@ layout: default
 ---
 {%- assign episodes = site.static_files | where_exp: "file", "file.path contains 'media'" | where: "extname", ".mp3" -%}
 
-<h2>Feeds:</h2>
+<h2> Feeds: </h2>
+
 {%- for feed in site.feeds -%}
-<a href = '{{ feed.url | absolute_url }}'>{{feed.title}}</a><br/>
+<a href = '{{ feed.url | absolute_url }}'>{{feed.title}}</a>  
 {%- endfor -%}
 
-<h2>Media:</h2>
-
+<h2> Media: </h2>
 
 <table>
   <thead>
