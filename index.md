@@ -8,6 +8,7 @@ layout: none
 
 <h2>Media:</h2>
 {%- assign episodes = site.static_files | where_exp: "file", "file.path contains 'media'" | where: "extname", ".mp3" -%}
+
 <table>
   <thead>
     <tr>
