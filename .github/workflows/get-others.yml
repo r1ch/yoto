@@ -28,6 +28,13 @@ jobs:
           npm i
           node index.js
 
+      - name: Write last run time
+        run: |
+          rm -f _data/bugle.yaml
+          echo "date: $(date)" >> _data/bugle.yaml
+          rm -f _data/nstaaf.yaml
+          echo "date: $(date)" >> _data/nstaaf.yaml
+
       - name: Commit downloads
         run: |
           ls
