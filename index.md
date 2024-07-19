@@ -1,7 +1,8 @@
 ---
 layout: none
 ---
-{%- for feed in site.feeds -%}
+
 <h2>Feeds:</h2>
+{%- for feed in site.feeds -%}
 <a href = '{{feed.permalink}}'>{{feed.title}}</a>
-{%- end for -%}
+{%- endfor -%}
