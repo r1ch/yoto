@@ -5,6 +5,7 @@ xmlns:podcast="https://podcastindex.org/namespace/1.0"
 xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>{{ page.title }}</title>
+        <author>Me</author>
         <description>Single cast feed for Yoto of {{ page.title }}</description>
         <link>{{ '/' | absolute_url }}</link>
         <atom:link href="{{ page.url | absolute_url }}" rel="self" type="application/rss+xml" />
@@ -17,6 +18,8 @@ xmlns:atom="http://www.w3.org/2005/Atom">
         {%- for episode in episodes -%}
         <item>
             <title>{{ page.title }}</title>
+            <author>Me</author>
+            <description>Single episode of {{ page.title }}</description>
             <itunes:explicit>true</itunes:explicit>
             <link>{{ '/' | absolute_url }}</link>
             <itunes:duration>100</itunes:duration>
