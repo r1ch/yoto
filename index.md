@@ -18,7 +18,7 @@ layout: none
   <tbody>
       {%- for episode in episodes -%}
     <tr>
-      <td><a href = "{{episode.path | absolute_url}}">episode.basename</a></td><td>{{file.modified_time}}</td>
+      <td><a href = "{{episode.path | absolute_url}}">{{episode.basename}}</a></td><td>{{file.modified_time}}</td>
     </tr>
       {%- endfor -%}
   </tbody>  
