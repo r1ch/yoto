@@ -5,13 +5,14 @@ xmlns:podcast="https://podcastindex.org/namespace/1.0"
 xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>{{ page.title }}</title>
+        <description>Single cast feed for Yoto of {{ page.title }}</description>
         <link>{{ '/' | absolute_url }}</link>
         <atom:link href="{{ page.url | absolute_url }}" rel="self" type="application/rss+xml" />
         <itunes:image href='{{ "/logo.jpeg" | absolute_url }}'/>
         <itunes:category text='Comedy' />
         <itunes:explicit>true</itunes:explicit>
         <language>en</language>
-        <description>Single cast feed for Yoto of {{ page.title }}</description>
+
         {%- for episode in episodes -%}
         <item>
             <title>{{ page.title }}</title>
