@@ -22,7 +22,6 @@ layout: default
     <tr>
       <td><a href="{{episode.path | absolute_url}}">{{ episode.basename }}</a></td>
       <td>{{ episode.modified_time }}</td>
-      <td>{{episodes | jsonify}}</td>
     </tr>
       {%- endfor -%}
   </tbody>  
