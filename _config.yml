@@ -2,3 +2,10 @@ collections:
   feeds:
     output: true
     permalink: /:name/feed.xml
+
+defaults:
+  - scope:
+      path: ""
+      type: "feeds"
+    values:
+      layout: "feed"
