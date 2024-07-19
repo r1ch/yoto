@@ -12,6 +12,7 @@ xmlns:atom="http://www.w3.org/2005/Atom">
         <itunes:category text='Comedy' />
         <itunes:explicit>true</itunes:explicit>
         <language>en</language>
+        <podcast:guid></podcast:guid>
 
         {%- for episode in episodes -%}
         <item>
@@ -24,5 +25,6 @@ xmlns:atom="http://www.w3.org/2005/Atom">
             <pubDate>{{ episode.modified_time | date_to_rfc822 }}</pubDate>
         </item>
         {%- endfor -%}
+            
     </channel>
 </rss>
