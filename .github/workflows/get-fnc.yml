@@ -68,6 +68,7 @@ jobs:
       - name: Commit downloads
         run: |
           ls
+          git pull
           git add *.mp3
           git add *.yaml
           git config --global user.name 'Poddy'
