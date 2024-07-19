@@ -4,6 +4,7 @@
     <channel>
         <title>{{ page.title }}</title>
         <link>{{ '/' | absolute_url }}</link>
+        <atom:link rel="self">{{ page.path | absolute_url }}</atom:link>
         <itunes:image href='{{ "/logo.jpeg" | absolute_url }}'/>
         <itunes:category text='Comedy' />
         <itunes:explicit>true</itunes:explicit>
