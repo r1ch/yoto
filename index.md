@@ -1,5 +1,5 @@
 ---
-layout: none
+layout: default
 ---
 <h2>Feeds:</h2>
 {%- for feed in site.feeds -%}
