@@ -4,12 +4,12 @@ const fs = require("fs")
 const feeds = [
   {
     title: "No Such Thing As A Fish",
-    folder: "../nstaaf",
+    folder: "../media",
     name: "nstaaf.mp3",
     url: "https://audioboom.com/channels/2399216.rss"
   },{
     title: "Bugle",
-    folder: "../bugle",
+    folder: "../media",
     name: "bugle.mp3",
     url: "https://feeds.acast.com/public/shows/5e7b777ba085cbe7192b0607"
   }
