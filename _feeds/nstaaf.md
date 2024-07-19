@@ -1,5 +1,5 @@
 ---
 layout: feed
-title: Friday Night Comedy
-short: fnc
+title: No Such Thing as a Fish
+short: nstaaf
 ---
