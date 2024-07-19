@@ -1,5 +1,4 @@
-defaults:
-  - scope:
-      path: "fnc"
-    values:
-      fnc: true
+collections:
+  feeds:
+    output: true
+    permalink: /:name/feed.xml
