@@ -11,7 +11,7 @@ const feeds = [
     title: "Bugle",
     folder: "../media",
     name: "bugle.mp3",
-    url: "https://feeds.acast.com/public/shows/5e7b777ba085cbe7192b0607"
+    url: "https://feeds.acast.com/public/shows/thebugle" 
   },{
     title: "Gargle",
     folder: "../media",
