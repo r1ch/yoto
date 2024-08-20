@@ -13,7 +13,7 @@ destination: media # which folder to drop the file in
 extension: mp3 # extension + filetype we expect
 trim: 10 # seconds off the front to bin
 uuid: 84037fb1-8456-5d0f-9834-e498bc8a67c5 # podcast guid / uuid
-fetched: 2024-08-20T11:48:05.746Z # timestamp of last fetch
+fetched: 2024-08-20T11:48:05.746Z # timestamp of last fetch (populated on run)
 ---
 ```
 
