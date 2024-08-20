@@ -1,3 +1,4 @@
+
 const needle = require("needle")
 const fs = require("fs")
 const YAML = require('yaml')
@@ -12,6 +13,7 @@ fs.readdirSync(DIR).forEach(file=>{
   console.log(`Got ${fqFile} @ ${DIR}/${file}`)
   const raw = fs.readFileSync(fqFile,'utf8').replace(/---/g,'')
   const yaml = YAML.parse(raw)
+  yaml.path = fqFile
   yaml.handler == "grabber" && feeds.push(yaml)
 })
 
@@ -47,6 +49,10 @@ const run = async()=>{
         }
     })
     .on('done',function(err){
+        let yaml = structuredClone(feed)
+        delete yaml.path
+        yaml.fetched = (new Date()).toISOString()
+        fs.writeFileSync(feed.path,`---\n${YAML.stringify(yaml)}---`)
         console.log(`Did ${f.title}`)
         out.close()
         t.remove()
