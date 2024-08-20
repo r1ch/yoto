@@ -39,9 +39,11 @@ const run = async()=>{
     const mediaItem = firstItem.children.find(x=> x.name == 'media:content' || x.name == 'enclosure')
     const mediaURL = mediaItem.url ? mediaItem.url : mediaItem.attributes.url
     const stream = needle.get(mediaURL,{follow_max:100})
-    const outPath = `${ROOT_SLASH}${f.destination}/${f.short}.${f.extension}`
-    const out = fs.createWriteStream(outPath)
-    console.log(`Readable ${f.title} -> ${outPath}`)
+    const outPart = `${ROOT_SLASH}${f.destination}/${f.short}`
+    const outTemp = `${outPart}.tmp`
+    const outFinal = `${outPart}.${f.extension}`
+    const out = fs.createWriteStream(outTemp)
+    console.log(`Readable ${f.title} -> ${outTemp}`)
 
     return stream
     .on('readable',function(){
@@ -59,8 +61,8 @@ const run = async()=>{
         fs.writeFileSync(f.path,`---\n${YAML.stringify(yaml)}---`)
         console.log(`Updated YAML for ${f.title}`)
         Cutter.cut({
-          src: outPath,
-          target: `${outPath.replace(/.mp3/,'')}-trimmed.mp3`,
+          src: outTemp,
+          target: outFinal,
           start: f.trim,
           end: 0
         })
