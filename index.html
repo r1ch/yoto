@@ -5,23 +5,20 @@ layout: default
 
 <h2> Feeds: </h2>
 
-{%- for feed in site.feeds -%}
-<a href="{{ feed.url | absolute_url }}">{{feed.title}}</a><br>
-{%- endfor -%}
-
-<h2> Media: </h2>
-
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Date</th>
+      <th>Feed Link</th><th>Media Link</th><th>Last Fetch</th>
     </tr>
   </thead>
   <tbody>
-      {%- for episode in episodes -%}
+      {%- for feed in site.feeds -%}
+      {% assign file = feed.short | append : "." | append : feed.extension %}
+      {% assign media_url = feed.destination | append : "/" | append: file | absolute_url %}
     <tr>
-      <td><a href="{{episode.path | absolute_url}}">{{ episode.basename }}</a></td>
-      <td>{{ site.data[episode.basename].date }}</td>
+      <td><a href="{{ feed.url | absolute_url }}">{{ feed.title }}</a></td>
+      <td><a href="{{ media_url }}">{{ file }}</a></td>
+      <td>{{feed.fetched}}</td>
     </tr>
       {%- endfor -%}
   </tbody>  
