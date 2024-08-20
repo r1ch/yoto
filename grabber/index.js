@@ -60,7 +60,7 @@ const run = async()=>{
         console.log(`Updated YAML for ${f.title}`)
         Cutter.cut({
           src: outPath,
-          target: outPath,
+          target: `${outPath}-trimmed`,
           start: f.trim,
           end: 0
         })
