@@ -2,7 +2,7 @@
 title: No Such Thing as a Fish
 short: nstaaf
 handler: grabber
-source: ttps://audioboom.com/channels/2399216.rss
+source: https://audioboom.com/channels/2399216.rss
 destination: media
 uuid: 7a42920f-71bf-5de8-81cf-fbdeaaa2110d
 ---
