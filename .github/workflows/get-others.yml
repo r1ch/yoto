@@ -33,7 +33,7 @@ jobs:
           ls
           git pull
           git add *.mp3
-          git add *.yaml
+          git add *.xml
           git config --global user.name 'Poddy'
           git config --global user.email 'poddy@users.noreply.github.com'
           git commit -am "Pod grab"
