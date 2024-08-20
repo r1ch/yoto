@@ -41,7 +41,7 @@ const run = async()=>{
     const stream = needle.get(mediaURL,{follow_max:100})
     const outPath = `${ROOT_SLASH}${f.destination}/${f.short}.${f.extension}`
     const out = fs.createWriteStream(outPath)
-    console.log(`Readable ${f.title}`)
+    console.log(`Readable ${f.title} -> ${outPath}`)
 
     return stream
     .on('readable',function(){
