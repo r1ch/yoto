@@ -2,7 +2,8 @@ const needle = require("needle")
 const fs = require("fs")
 const YAML = require('yaml')
 
-const DIR = "/_feeds"
+const ROOT_SLASH = "../"
+const DIR = `${ROOT_SLASH}_feeds`
 const feeds = []
 
 //Get configs
@@ -35,7 +36,7 @@ const run = async()=>{
     const mediaItem = firstItem.children.find(x=> x.name == 'media:content' || x.name == 'enclosure')
     const mediaURL = mediaItem.url ? mediaItem.url : mediaItem.attributes.url
     const stream = needle.get(mediaURL,{follow_max:100})
-    const out = fs.createWriteStream(`/${f.destination}/${f.name}.${f.extension}`)
+    const out = fs.createWriteStream(`${ROOT_SLASH}${f.destination}/${f.name}.${f.extension}`)
     console.log(`Readable ${f.title}`)
 
     return stream
