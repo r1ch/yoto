@@ -2,6 +2,7 @@
 const needle = require("needle")
 const fs = require("fs")
 const YAML = require('yaml')
+const Cutter = require("mp3-cutter")
 
 const ROOT_SLASH = "../"
 const DIR = `${ROOT_SLASH}_feeds`
@@ -38,7 +39,8 @@ const run = async()=>{
     const mediaItem = firstItem.children.find(x=> x.name == 'media:content' || x.name == 'enclosure')
     const mediaURL = mediaItem.url ? mediaItem.url : mediaItem.attributes.url
     const stream = needle.get(mediaURL,{follow_max:100})
-    const out = fs.createWriteStream(`${ROOT_SLASH}${f.destination}/${f.name}.${f.extension}`)
+    const outPath = `${ROOT_SLASH}${f.destination}/${f.name}.${f.extension}`
+    const out = fs.createWriteStream(outPath)
     console.log(`Readable ${f.title}`)
 
     return stream
@@ -49,12 +51,20 @@ const run = async()=>{
         }
     })
     .on('done',function(err){
-        let yaml = structuredClone(feed)
+        out.close()
+        console.log(`Did ${f.title}`)
+        let yaml = structuredClone(f)
         delete yaml.path
         yaml.fetched = (new Date()).toISOString()
-        fs.writeFileSync(feed.path,`---\n${YAML.stringify(yaml)}---`)
-        console.log(`Did ${f.title}`)
-        out.close()
+        fs.writeFileSync(f.path,`---\n${YAML.stringify(yaml)}---`)
+        console.log(`Updated YAML for ${f.title}`)
+        Cutter.cut({
+          src: outPath,
+          target: outPath,
+          start: f.trim,
+          end: 0
+        })
+        console.log(`Trimmed ${f.title}`)
         t.remove()
     })
   })
