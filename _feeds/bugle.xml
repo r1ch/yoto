@@ -1,5 +1,8 @@
 ---
 title: Bugle
 short: bugle
+handler: grabber
+source: "https://feeds.acast.com/public/shows/thebugle" 
+destination: "media"
 uuid: 84037fb1-8456-5d0f-9834-e498bc8a67c5
 ---
