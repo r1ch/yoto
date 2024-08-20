@@ -1,24 +1,18 @@
 const needle = require("needle")
 const fs = require("fs")
+const YAML = require('yaml')
 
-const feeds = [
-  {
-    title: "No Such Thing As A Fish",
-    folder: "../media",
-    name: "nstaaf.mp3",
-    url: "https://audioboom.com/channels/2399216.rss"
-  },{
-    title: "Bugle",
-    folder: "../media",
-    name: "bugle.mp3",
-    url: "https://feeds.acast.com/public/shows/thebugle" 
-  },{
-    title: "Gargle",
-    folder: "../media",
-    name: "gargle.mp3",
-    url: "https://feeds.acast.com/public/shows/the-gargle"
-  }
-]
+const DIR = "/_feeds"
+const feeds = []
+
+//Get configs
+fs.readdirSync("/_feeds").forEach(file=>{
+  const fqFile = ${DIR}/${file}
+  console.log(`Got ${fq_file} @ ${DIR}/${file}`)
+  const raw = fs.readFileSync(fqFile,'utf8')
+  feeds.push(YAML.parse(raw))
+  console.log(feeds)
+})
 
 class Track {
   constructor(){this.count=0;}
