@@ -6,13 +6,15 @@ const DIR = "/_feeds"
 const feeds = []
 
 //Get configs
-fs.readdirSync("/_feeds").forEach(file=>{
-  const fqFile = ${DIR}/${file}
-  console.log(`Got ${fq_file} @ ${DIR}/${file}`)
-  const raw = fs.readFileSync(fqFile,'utf8')
-  feeds.push(YAML.parse(raw))
-  console.log(feeds)
+fs.readdirSync(DIR).forEach(file=>{
+  const fqFile = `${DIR}/${file}`
+  console.log(`Got ${fqFile} @ ${DIR}/${file}`)
+  const raw = fs.readFileSync(fqFile,'utf8').replace(/---/g,'')
+  const yaml = YAML.parse(raw)
+  yaml.handler == "grabber" && feeds.push(yaml)
 })
+
+console.log(`Config: ${JSON.stringify(feeds)}`)
 
 class Track {
   constructor(){this.count=0;}
@@ -25,7 +27,7 @@ const run = async()=>{
   feeds.map(async feed=>{
     t.add()
     const f = feed
-    const xml = await needle('get', f.url)
+    const xml = await needle('get', f.source)
     const body = xml.body
     const firstItem = xml.body
          ?.children.find(x=>x.name=='channel')
@@ -33,7 +35,7 @@ const run = async()=>{
     const mediaItem = firstItem.children.find(x=> x.name == 'media:content' || x.name == 'enclosure')
     const mediaURL = mediaItem.url ? mediaItem.url : mediaItem.attributes.url
     const stream = needle.get(mediaURL,{follow_max:100})
-    const out = fs.createWriteStream(`${f.folder}/${f.name}`)
+    const out = fs.createWriteStream(`/${f.destination}/${f.name}.${f.extension}`)
     console.log(`Readable ${f.title}`)
 
     return stream
