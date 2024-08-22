@@ -1,0 +1,11 @@
+---
+title: Parenting Hell
+short: parentinghell
+handler: grabber
+source: https://feeds.megaphone.fm/GLT9881106244
+destination: media
+extension: mp3
+trim: 60
+uuid: 4d43ea37-8edd-4409-996c-19e40ac8d69c
+fetched: 2024-08-21T20:10:40.745Z
+---
