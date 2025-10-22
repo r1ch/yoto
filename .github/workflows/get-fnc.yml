@@ -65,6 +65,10 @@ jobs:
           rm -f fnc.mp3
           get_iplayer --file-prefix="<pid>" --pid=$(get_iplayer --pid=p02pc9pj --pid-recursive-list | tail -2 | head -1 | grep -oE '[^ ]+$')
           for f in *.m4a; do ffmpeg -i "$f" -codec:v copy -codec:a libmp3lame -q:a 2 ./"fnc.mp3"; done
+          rm *.m4a
+          rm -f nstaaf.mp3
+          get_iplayer --file-prefix="<pid>" --pid=$(get_iplayer --pid=p0m90sdz --pid-recursive-list | tail -2 | head -1 | grep -oE '[^ ]+$')
+          for f in *.m4a; do ffmpeg -i "$f" -codec:v copy -codec:a libmp3lame -q:a 2 ./"nstaaf.mp3"; done
         
 
       - name: Commit downloads
