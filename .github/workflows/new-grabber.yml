@@ -1,0 +1,48 @@
+name: Run grab2 script
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 4 * * *'  # Runs daily at 4 AM UTC
+  workflow_dispatch:      # Allows manual triggering
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run grab2 script
+        run: node grab2.mjs
+
+      - name: Commit changes (if any)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data media
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update data and media from grab2.mjs"
+            git push
+          fi
