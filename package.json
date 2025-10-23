@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ffmpeg-static": "^5.2.0",
     "fs-extra": "^11.3.2",
     "js-yaml": "^4.1.0",
     "needle": "^3.3.1",
