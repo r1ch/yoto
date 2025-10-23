@@ -30,6 +30,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
       - name: Run grab2 script
         run: node grab2.mjs
 
