@@ -25,8 +25,8 @@ xmlns:atom="http://www.w3.org/2005/Atom">
             <description>Single episode of {{ page.title }}</description>
             <itunes:explicit>true</itunes:explicit>
             <link>{{ '/' | absolute_url }}</link>
-            <itunes:duration>{{length}}</itunes:duration>
-            <enclosure url='{{ episode.path | absolute_url }}' length='{{length}}' type='audio/mpeg'/>
+            <itunes:duration>{{length | round }}</itunes:duration>
+            <enclosure url='{{ episode.path | absolute_url }}' length='{{length | round }}' type='audio/mpeg'/>
             <guid>{{ episode.path | absolute_url }}:{{ site.github.build_revision }}</guid>
             <pubDate>{{ page.fetched | date_to_rfc822 }}</pubDate>
         </item>
