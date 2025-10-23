@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 {%- assign episodes = site.static_files | where_exp: "file", "file.path contains 'media'" | where: "extname", ".mp3" | where: "basename", page.short  -%}
+{% assign data = site.data[page.short] %}
+{% assign length = data.length_seconds | default : 100 %}
 <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
 xmlns:podcast="https://podcastindex.org/namespace/1.0"
 xmlns:atom="http://www.w3.org/2005/Atom">
@@ -22,8 +24,8 @@ xmlns:atom="http://www.w3.org/2005/Atom">
             <description>Single episode of {{ page.title }}</description>
             <itunes:explicit>true</itunes:explicit>
             <link>{{ '/' | absolute_url }}</link>
-            <itunes:duration>100</itunes:duration>
-            <enclosure url='{{ episode.path | absolute_url }}' length='100' type='audio/mpeg'/>
+            <itunes:duration>{{length}}</itunes:duration>
+            <enclosure url='{{ episode.path | absolute_url }}' length='{{length}}' type='audio/mpeg'/>
             <guid>{{ episode.path | absolute_url }}:{{ site.github.build_revision }}</guid>
             <pubDate>{{ page.fetched | date_to_rfc822 }}</pubDate>
         </item>
