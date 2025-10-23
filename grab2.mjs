@@ -2,13 +2,13 @@ import fs from "fs-extra";
 import path from "path";
 import yaml from "js-yaml";
 import needle from "needle";
-import ffmpeg from "fluent-ffmpeg";
-import ffmpegPath from "ffmpeg-static";
+import { execFile } from "child_process";
+import util from "util";
 
-ffmpeg.setFfmpegPath(ffmpegPath);
+const execFilePromise = util.promisify(execFile);
 
-const INPUT_DIR = "./_feeds";        // Directory containing .yaml files
-const OUTPUT_DATA_DIR = "./_data";   // Where JSON metadata is saved
+const INPUT_DIR = "./_feeds";
+const OUTPUT_DATA_DIR = "./_data";
 
 async function main() {
   await fs.ensureDir(OUTPUT_DATA_DIR);
@@ -19,7 +19,6 @@ async function main() {
     const yamlPath = path.join(INPUT_DIR, file);
     const yamlContent = await fs.readFile(yamlPath, "utf8");
 
-    // Remove leading/trailing ---
     const cleaned = yamlContent.trim().replace(/^---\s*/, "").replace(/\s*---\s*$/, "");
 
     let config;
@@ -30,14 +29,7 @@ async function main() {
       continue;
     }
 
-    const {
-      title,
-      short,
-      source,         // RSS feed URL
-      destination,
-      extension = "mp3",
-      trim = 0,
-    } = config;
+    const { title, short, source, destination, extension = "mp3", trim = 0 } = config;
 
     if (!short || !source || !destination) {
       console.error(`⚠️ Missing required fields in ${file}, skipping`);
@@ -64,11 +56,9 @@ async function main() {
       continue;
     }
 
-    // Extract media URL from enclosure or media:content
     const mediaItem = firstItem.children.find(x =>
       x.name === "media:content" || x.name === "enclosure"
     );
-
     const mediaUrl = mediaItem?.url || mediaItem?.attributes?.url;
 
     if (!mediaUrl) {
@@ -85,7 +75,6 @@ async function main() {
     const outputFile = path.join(destDir, `${short}.mp3`);
     const dataFile = path.join(OUTPUT_DATA_DIR, `${short}.json`);
 
-    // Download media file
     console.log(`⬇️  Downloading audio...`);
     try {
       const stream = needle.get(mediaUrl, { follow_max: 10 });
@@ -102,24 +91,31 @@ async function main() {
 
     console.log(`✅ Downloaded to ${tempFile}`);
 
-    // Convert and trim audio
-    console.log(`🎬 Converting and trimming first ${trim}s...`);
+    // Convert and trim audio using system ffmpeg
+    console.log(`🎬 Converting and trimming (start at ${trim}s)...`);
     try {
-      await new Promise((resolve, reject) => {
-        ffmpeg(tempFile)
-          .setStartTime(trim)
-          .toFormat("mp3")
-          .on("error", reject)
-          .on("end", resolve)
-          .save(outputFile);
-      });
+      const args = [
+        "-y",                // overwrite output
+        "-ss", `${trim}`,    // start time
+        "-i", tempFile,
+        "-acodec", "libmp3lame",
+        "-b:a", "128k",
+        outputFile,
+      ];
+      await execFilePromise("ffmpeg", args);
     } catch (err) {
       console.error(`❌ Failed to convert audio: ${err.message}`);
       continue;
     }
 
-    // Get MP3 duration and write metadata
-    const duration = await getAudioDuration(outputFile);
+    // Get duration using ffprobe
+    let duration = 0;
+    try {
+      duration = await getAudioDuration(outputFile);
+    } catch (err) {
+      console.error(`⚠️ Could not get duration: ${err.message}`);
+    }
+
     const episodeTitle = firstItem.children.find(x => x.name === "title")?.children?.[0] || null;
     const episodePubDate = firstItem.children.find(x => x.name === "pubDate")?.children?.[0] || null;
     const episodeDescription = firstItem.children.find(x => x.name === "description")?.children?.[0] || null;
@@ -127,14 +123,7 @@ async function main() {
     const episodeLink = firstItem.children.find(x => x.name === "link")?.children?.[0] || null;
 
     const metadata = {
-      podcast: {
-        title,
-        short,
-        source,
-        destination,
-        extension,
-        trim,
-      },
+      podcast: { title, short, source, destination, extension, trim },
       episode: {
         title: episodeTitle,
         pubDate: episodePubDate,
@@ -150,8 +139,7 @@ async function main() {
       }
     };
 
-await fs.writeJson(dataFile, metadata, { spaces: 2 });
-
+    await fs.writeJson(dataFile, metadata, { spaces: 2 });
     console.log(`📄 Saved metadata to ${dataFile}`);
     console.log(`✅ Done: ${short}.mp3 (${duration.toFixed(2)}s)`);
 
@@ -160,12 +148,17 @@ await fs.writeJson(dataFile, metadata, { spaces: 2 });
 }
 
 async function getAudioDuration(filePath) {
-  return new Promise((resolve, reject) => {
-    ffmpeg.ffprobe(filePath, (err, metadata) => {
-      if (err) return reject(err);
-      resolve(metadata.format.duration || 0);
-    });
-  });
+  try {
+    const { stdout } = await execFilePromise("ffprobe", [
+      "-v", "error",
+      "-show_entries", "format=duration",
+      "-of", "default=noprint_wrappers=1:nokey=1",
+      filePath,
+    ]);
+    return parseFloat(stdout.trim());
+  } catch (err) {
+    throw new Error(`ffprobe failed: ${err.message}`);
+  }
 }
 
 main()
