@@ -1,0 +1,23 @@
+{
+  "podcast": {
+    "title": "Parenting Hell",
+    "short": "parentinghell",
+    "source": "https://feeds.megaphone.fm/GLT9881106244",
+    "destination": "media",
+    "extension": "mp3",
+    "trim": 120
+  },
+  "episode": {
+    "title": null,
+    "pubDate": null,
+    "description": null,
+    "guid": null,
+    "link": null,
+    "media_url": "https://traffic.megaphone.fm/GLT4729881337.mp3?updated=1760992401"
+  },
+  "output": {
+    "file": "/home/runner/work/yoto/yoto/media/parentinghell.mp3",
+    "duration_seconds": 2258.259592,
+    "downloaded_at": "2025-10-23T08:03:26.197Z"
+  }
+}

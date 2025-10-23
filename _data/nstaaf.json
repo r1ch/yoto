@@ -1,0 +1,23 @@
+{
+  "podcast": {
+    "title": "No Such Thing As A Fish",
+    "short": "nstaaf",
+    "source": "https://audioboom.com/channels/2399216.rss",
+    "destination": "media",
+    "extension": "mp3",
+    "trim": 140
+  },
+  "episode": {
+    "title": null,
+    "pubDate": null,
+    "description": null,
+    "guid": null,
+    "link": null,
+    "media_url": "https://pdst.fm/e/arttrk.com/p/ABMA5/pscrb.fm/rss/p/dts.podtrac.com/redirect.mp3/audioboom.com/posts/8792295.mp3?modified=1760634916&sid=2399216&source=rss"
+  },
+  "output": {
+    "file": "/home/runner/work/yoto/yoto/media/nstaaf.mp3",
+    "duration_seconds": 3566.136,
+    "downloaded_at": "2025-10-23T08:02:53.424Z"
+  }
+}

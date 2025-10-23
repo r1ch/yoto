@@ -1,0 +1,23 @@
+{
+  "podcast": {
+    "title": "Gargle",
+    "short": "gargle",
+    "source": "https://feeds.acast.com/public/shows/the-gargle",
+    "destination": "media",
+    "extension": "mp3",
+    "trim": 75
+  },
+  "episode": {
+    "title": null,
+    "pubDate": null,
+    "description": null,
+    "guid": null,
+    "link": null,
+    "media_url": "https://sphinx.acast.com/p/acast/s/the-gargle/e/67b790c4b3ef9b9a01438505/media.mp3"
+  },
+  "output": {
+    "file": "/home/runner/work/yoto/yoto/media/gargle.mp3",
+    "duration_seconds": 1998.445714,
+    "downloaded_at": "2025-10-23T08:02:06.307Z"
+  }
+}
