@@ -13,11 +13,11 @@
     "description": null,
     "guid": null,
     "link": null,
-    "media_url": "https://sphinx.acast.com/p/open/s/5e7b777ba085cbe7192b0607/e/68f8871aaf22931d80d27959/media.mp3"
+    "media_url": "https://sphinx.acast.com/p/open/s/5e7b777ba085cbe7192b0607/e/68ff7d1d5d04b86696feebfb/media.mp3"
   },
   "output": {
     "file": "/home/runner/work/yoto/yoto/media/bugle.mp3",
-    "duration_seconds": 2634.657959,
-    "downloaded_at": "2025-10-28T20:07:48.379Z"
+    "duration_seconds": 2549.96898,
+    "downloaded_at": "2025-10-29T20:08:35.558Z"
   }
 }
