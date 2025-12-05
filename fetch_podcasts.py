@@ -4,7 +4,7 @@ import json
 import os
 import subprocess
 import requests
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from pydub import AudioSegment
 
@@ -19,7 +19,7 @@ with open("podcasts.yml", "r") as f:
 # ---------------------------------------------------------------------
 # BBC PODCASTS VIA get_iplayer
 # ---------------------------------------------------------------------
-def fetch_bbc_episode(name, pid):
+def fetch_bbc_episode(name, pid, trim_seconds=0):
     print(f"Fetching BBC podcast series: {name}")
 
     # Step 1: get the list of episode PIDs
@@ -61,7 +61,7 @@ def fetch_bbc_episode(name, pid):
     downloaded_file = files[0]
     mp3_path = OUTPUT_DIR / f"{name}.mp3"
 
-    convert_to_mp3(downloaded_file, mp3_path)
+    convert_to_mp3(downloaded_file, mp3_path, trim_seconds)
     make_json_metadata(mp3_path, name)
 
     # Cleanup
@@ -74,7 +74,7 @@ def fetch_bbc_episode(name, pid):
 # ---------------------------------------------------------------------
 # RSS PODCASTS
 # ---------------------------------------------------------------------
-def fetch_rss_episode(name, feed_url):
+def fetch_rss_episode(name, feed_url, trim_seconds=0):
     print(f"Fetching RSS podcast: {name}")
 
     feed = feedparser.parse(feed_url)
@@ -136,7 +136,7 @@ def fetch_rss_episode(name, feed_url):
                 f.write(chunk)
 
     mp3_path = OUTPUT_DIR / f"{name}.mp3"
-    convert_to_mp3(audio_path, mp3_path)
+    convert_to_mp3(audio_path, mp3_path, trim_seconds)
     make_json_metadata(mp3_path, name)
 
     audio_path.unlink()
@@ -146,9 +146,14 @@ def fetch_rss_episode(name, feed_url):
 # ---------------------------------------------------------------------
 # Convert audio → MP3 (small size)
 # ---------------------------------------------------------------------
-def convert_to_mp3(input_file, output_file):
+def convert_to_mp3(input_file, output_file, trim_seconds=0):
     print(f"Converting to MP3: {output_file}")
     audio = AudioSegment.from_file(input_file)
+    
+    if trim_seconds > 0:
+        print(f"  → Trimming first {trim_seconds} seconds")
+        audio = audio[trim_seconds * 1000:]  # pydub uses milliseconds
+
     audio.export(output_file, format="mp3", bitrate="64k")  # small file size
 
 
@@ -178,12 +183,13 @@ def make_json_metadata(mp3_file, name):
 def main():
     # Process BBC podcasts
     for item in config.get("bbc", []):
-        fetch_bbc_episode(item["name"], item["pid"])
+        trim_seconds = item.get("trim", 0)
+        fetch_bbc_episode(item["name"], item["pid"], trim_seconds)
 
     # Process RSS podcasts
     for item in config.get("rss", []):
-        fetch_rss_episode(item["name"], item["feed"])
-
+        trim_seconds = item.get("trim", 0)
+        fetch_rss_episode(item["name"], item["feed"], trim_seconds)
 
 if __name__ == "__main__":
     main()
