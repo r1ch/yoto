@@ -1,0 +1,36 @@
+name: Update Podcasts
+
+on:
+  schedule:
+    - cron: "55 20 * * *" 
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Install system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y get-iplayer ffmpeg
+
+      - name: Install Python deps
+        run: |
+          pip install feedparser pydub requests pyyaml
+
+      - name: Run fetch script
+        run: python3 fetch_podcasts.py
+
+      - name: Commit changes
+        run: |
+          git config --global user.email "github-actions@users.noreply.github.com"
+          git config --global user.name "GitHub Actions"
+          git add output/
+          git commit -m "Update podcasts $(date)" || echo "No changes"
+          git push
