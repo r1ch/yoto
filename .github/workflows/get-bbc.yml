@@ -83,30 +83,30 @@ jobs:
             FULLPATH="$(pwd)/${OUT_MP3}"
 
             cat <<EOF > ../_data/${PID}.json
-{
-  "podcast": {
-    "title": "BBC Podcast $PID",
-    "short": "$PID",
-    "source": "https://www.bbc.co.uk/programmes/$PID",
-    "destination": "media",
-    "extension": "mp3",
-    "trim": 0
-  },
-  "episode": {
-    "title": null,
-    "pubDate": null,
-    "description": null,
-    "guid": "$EP_PID",
-    "link": "https://www.bbc.co.uk/programmes/$EP_PID",
-    "media_url": null
-  },
-  "output": {
-    "file": "$FULLPATH",
-    "duration_seconds": $DURATION,
-    "downloaded_at": "$NOW"
-  }
-}
-EOF
+                  {
+                    "podcast": {
+                      "title": "BBC Podcast $PID",
+                      "short": "$PID",
+                      "source": "https://www.bbc.co.uk/programmes/$PID",
+                      "destination": "media",
+                      "extension": "mp3",
+                      "trim": 0
+                    },
+                    "episode": {
+                      "title": null,
+                      "pubDate": null,
+                      "description": null,
+                      "guid": "$EP_PID",
+                      "link": "https://www.bbc.co.uk/programmes/$EP_PID",
+                      "media_url": null
+                    },
+                    "output": {
+                      "file": "$FULLPATH",
+                      "duration_seconds": $DURATION,
+                      "downloaded_at": "$NOW"
+                    }
+                  }
+                  EOF
 
             cd ..
           done
