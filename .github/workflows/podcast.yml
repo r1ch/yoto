@@ -109,6 +109,7 @@ jobs:
         mkdir -p output/
         git config --global user.email "github-actions@users.noreply.github.com"
         git config --global user.name "GitHub Actions"
-        git add output/ || true
+        git add media/ || true
+        git add _feeds/ || true
         git commit -m 'Update podcasts' || echo "No changes to commit"
         git push
