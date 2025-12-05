@@ -10,23 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: true
+    # -----------------------------------------------------------
+    # 1. CHECKOUT
+    # -----------------------------------------------------------
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: true
 
-      # --------------------------------------------
-      # CACHE PERL MODULES
-      # --------------------------------------------
-      - name: Cache Perl modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/perl5
-            ~/.cpanm
-          key: ${{ runner.os }}-perl-${{ hashFiles('fetch_podcasts.py', 'podcasts.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-perl-
+    # -----------------------------------------------------------
+    # 2. CACHE PERL + CPANM
+    # -----------------------------------------------------------
+    - name: Cache Perl modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/perl5
+          ~/.cpanm
+        key: ${{ runner.os }}-perl-${{ hashFiles('fetch_podcasts.py', 'podcasts.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-perl-
 
-      - name: Install ffmpeg + AtomicParsley + XML deps
-        run:
+    # -----------------------------------------------------------
+    # 3. SYSTEM DEPS
+    # -----------------------------------------------------------
+    - name: Install ffmpeg + AtomicParsley + XML deps
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y atomicparsley ffmpeg libxml2 libx
