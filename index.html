@@ -13,6 +13,7 @@ layout: default
   </thead>
   <tbody>
       {%- for feed in site.feeds -%}
+      {{ feed | jsonify }}
       {% assign media_url = feed.filename | absolute_url %}
     <tr>
       <td><a href="{{ feed.url | absolute_url }}">{{ feed.name }}</a></td>
