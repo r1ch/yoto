@@ -1,119 +1,35 @@
-name: Update Podcasts
+- name: Setup Perl local lib
+  shell: bash
+  run: |
+    echo "PERL_LOCAL_LIB_ROOT=$HOME/perl5" >> $GITHUB_ENV
+    echo "PERL5LIB=$HOME/perl5/lib/perl5" >> $GITHUB_ENV
+    echo "PERL_MB_OPT=--install_base $HOME/perl5" >> $GITHUB_ENV
+    echo "PERL_MM_OPT=INSTALL_BASE=$HOME/perl5" >> $GITHUB_ENV
+    echo "PATH=$HOME/perl5/bin:\$PATH" >> $GITHUB_ENV
 
-on:
-  schedule:
-    - cron: "55 20 * * *"
-  workflow_dispatch:
+- name: Install cpanm
+  shell: bash
+  run: bash -l -c "cpan App::cpanminus"
 
-jobs:
-  update:
-    runs-on: ubuntu-latest
+- name: Install Perl modules
+  shell: bash
+  run: |
+    bash -l -c "cpanm --quiet --notest LWP"
+    bash -l -c "cpanm --quiet --notest LWP::Protocol::https"
+    bash -l -c "cpanm --quiet --notest Mojolicious"
+    bash -l -c "cpanm --quiet --notest XML::LibXML"
+    bash -l -c "cpanm --quiet --notest CGI"
 
-    steps:
-    # -----------------------------------------------------------
-    # 1. CHECKOUT
-    # -----------------------------------------------------------
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        persist-credentials: true
+- name: Debug Perl & get_iplayer environment
+  shell: bash
+  run: |
+    echo "=== PATH ==="
+    echo "$PATH"
+    which perl
+    which cpanm
+    ls -R $HOME/perl5
+    get_iplayer --version || echo "get_iplayer FAILED"
 
-    # -----------------------------------------------------------
-    # 2. CACHE PERL + CPANM
-    # -----------------------------------------------------------
-    - name: Cache Perl modules
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/perl5
-          ~/.cpanm
-        key: ${{ runner.os }}-perl-${{ hashFiles('fetch_podcasts.py', 'podcasts.yml') }}
-        restore-keys: |
-          ${{ runner.os }}-perl-
-
-    # -----------------------------------------------------------
-    # 3. SYSTEM DEPS
-    # -----------------------------------------------------------
-    - name: Install ffmpeg + AtomicParsley + XML deps
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y atomicparsley ffmpeg libxml2 libxml2-dev libxslt1-dev --fix-missing
-
-    # -----------------------------------------------------------
-    # 4. PERL LOCAL::LIB SETUP (CORRECT \$PATH ESCAPE)
-    # -----------------------------------------------------------
-    - name: Setup Perl local lib
-      run: |
-        echo "PERL_LOCAL_LIB_ROOT=$HOME/perl5" >> $GITHUB_ENV
-        echo "PERL5LIB=$HOME/perl5/lib/perl5" >> $GITHUB_ENV
-        echo "PERL_MB_OPT=--install_base $HOME/perl5" >> $GITHUB_ENV
-        echo "PERL_MM_OPT=INSTALL_BASE=$HOME/perl5" >> $GITHUB_ENV
-        echo "PATH=$HOME/perl5/bin:\$PATH" >> $GITHUB_ENV
-
-    # -----------------------------------------------------------
-    # 5. INSTALL CPANMINUS (always works even if cached)
-    # -----------------------------------------------------------
-    - name: Install cpanm
-      run: bash -l -c "cpan App::cpanminus"
-
-    # -----------------------------------------------------------
-    # 6. INSTALL REQUIRED PERL MODULES
-    # -----------------------------------------------------------
-    - name: Install Perl modules
-      run: |
-        bash -l -c "cpanm --quiet --notest LWP"
-        bash -l -c "cpanm --quiet --notest LWP::Protocol::https"
-        bash -l -c "cpanm --quiet --notest Mojolicious"
-        bash -l -c "cpanm --quiet --notest XML::LibXML"
-        bash -l -c "cpanm --quiet --notest CGI"
-
-    # -----------------------------------------------------------
-    # 7. INSTALL GET_IPLAYER (upstream master)
-    # -----------------------------------------------------------
-    - name: Install get_iplayer
-      run: |
-        wget -O get_iplayer https://raw.githubusercontent.com/get-iplayer/get_iplayer/master/get_iplayer
-        chmod +x get_iplayer
-        sudo mv get_iplayer /usr/local/bin/
-
-    # -----------------------------------------------------------
-    # 8. DEBUGGING BLOCK (ALWAYS PRINTS IMPORTANT INFO)
-    # -----------------------------------------------------------
-    - name: Debug Perl & get_iplayer environment
-      run: |
-        echo "=== PATH ==="
-        echo "$PATH"
-        echo "=== Perl location ==="
-        which perl
-        echo "=== cpanm location ==="
-        which cpanm || true
-        echo "=== listing perl5 ==="
-        ls -R $HOME/perl5 || true
-        echo "=== get_iplayer version ==="
-        get_iplayer --version || echo "get_iplayer FAILED"
-
-    # -----------------------------------------------------------
-    # 9. INSTALL PYTHON DEPENDENCIES
-    # -----------------------------------------------------------
-    - name: Install Python deps
-      run: |
-        pip install --quiet feedparser pydub requests pyyaml
-
-    # -----------------------------------------------------------
-    # 10. RUN YOUR SCRIPT (using bash -l so Perl env loads)
-    # -----------------------------------------------------------
-    - name: Run fetch script
-      run: |
-        bash -l -c "python3 fetch_podcasts.py"
-
-    # -----------------------------------------------------------
-    # 11. COMMIT ANY CHANGES
-    # -----------------------------------------------------------
-    - name: Commit changes
-      run: |
-        mkdir -p output/
-        git config --global user.email "github-actions@users.noreply.github.com"
-        git config --global user.name "GitHub Actions"
-        git add output/
-        git commit -m 'Update podcasts' || echo "No changes"
-        git push
+- name: Run fetch script
+  shell: bash
+  run: bash -l -c "python3 fetch_podcasts.py"
