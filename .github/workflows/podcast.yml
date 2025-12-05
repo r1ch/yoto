@@ -2,7 +2,7 @@ name: Update Podcasts
 
 on:
   schedule:
-    - cron: "55 20 * * *" 
+    - cron: "55 20 * * *"
   workflow_dispatch:
 
 jobs:
@@ -15,48 +15,18 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Install ffmpeg + AtomicParsley
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y atomicparsley ffmpeg --fix-missing
+      # --------------------------------------------
+      # CACHE PERL MODULES
+      # --------------------------------------------
+      - name: Cache Perl modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/perl5
+            ~/.cpanm
+          key: ${{ runner.os }}-perl-${{ hashFiles('fetch_podcasts.py', 'podcasts.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-perl-
 
-      - name: Setup Perl local lib
-        run: |
-          PERL_LOCAL_LIB_ROOT="$HOME/perl5"
-          echo "PERL_LOCAL_LIB_ROOT=$PERL_LOCAL_LIB_ROOT" >> "$GITHUB_ENV"
-          echo "PERL5LIB=$PERL_LOCAL_LIB_ROOT/lib/perl5" >> "$GITHUB_ENV"
-          echo "PERL_MB_OPT=--install_base \"$PERL_LOCAL_LIB_ROOT/\"" >> "$GITHUB_ENV"
-          echo "PERL_MM_OPT=INSTALL_BASE=$PERL_LOCAL_LIB_ROOT" >> "$GITHUB_ENV"
-          echo "PATH=$PERL_LOCAL_LIB_ROOT/bin:$PATH" >> "$GITHUB_ENV"
-
-      - name: Install cpanm
-        run: cpan App::cpanminus
-
-      - name: Install Perl modules
-        run: |
-          cpanm --notest LWP
-          cpanm --notest LWP::Protocol::https
-          cpanm --notest Mojolicious
-          cpanm --notest XML::LibXML
-          cpanm --notest CGI
-
-      - name: Install Get-iPlayer
-        run: |
-          wget https://raw.githubusercontent.com/get-iplayer/get_iplayer/master/get_iplayer
-          install -m 755 ./get_iplayer /usr/local/bin
-      
-
-      - name: Install Python deps
-        run: |
-          pip install feedparser pydub requests pyyaml
-
-      - name: Run fetch script
-        run: python3 fetch_podcasts.py
-
-      - name: Commit changes
-        run: |
-          git config --global user.email "github-actions@users.noreply.github.com"
-          git config --global user.name "GitHub Actions"
-          git add output/
-          git commit -m "Update podcasts $(date)" || echo "No changes"
-          git push
+      - name: Install ffmpeg + AtomicParsley + XML deps
+        run:
