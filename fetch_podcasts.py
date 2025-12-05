@@ -26,7 +26,7 @@ def fetch_bbc_episode(name, pid):
     cmd = [
         "get_iplayer",
         f"--pid={pid}",
-        "--type=podcast",
+        "--type=radio",
         "--force",
         "--nocopyright",
         "--output=tmp_download"
