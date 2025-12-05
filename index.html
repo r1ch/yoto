@@ -8,18 +8,16 @@ layout: default
 <table>
   <thead>
     <tr>
-      <th>Feed Link</th><th>Media Link</th><th>Trimmed by</th><th>Last Fetch</th>
+      <th>Feed Link</th><th>Media Link</th><th>Last Fetch</th>
     </tr>
   </thead>
   <tbody>
       {%- for feed in site.feeds -%}
-      {% assign file = feed.short | append : "." | append : feed.extension %}
-      {% assign media_url = feed.destination | append : "/" | append: file | absolute_url %}
+      {% assign media_url = feed.filename | absolute_url %}
     <tr>
-      <td><a href="{{ feed.url | absolute_url }}">{{ feed.title }}</a></td>
+      <td><a href="{{ feed.url | absolute_url }}">{{ feed.name }}</a></td>
       <td><a href="{{ media_url }}">{{ file }}</a></td>
-      <td>{{feed.trim}}</a></td>
-      <td>{{feed.fetched}}</td>
+      <td>{{feed.date}}</td>
     </tr>
       {%- endfor -%}
   </tbody>  
