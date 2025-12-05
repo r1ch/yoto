@@ -1,7 +1,3 @@
-# Improved GitHub Actions Workflow: Get BBC Podcasts
-# - Loops over BBC PIDs
-# - Generates metadata JSON per PID
-
 name: Get BBC Podcasts
 
 on:
