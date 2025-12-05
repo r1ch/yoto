@@ -84,27 +84,63 @@ def fetch_rss_episode(name, feed_url):
 
     entry = feed.entries[0]
 
-    if 'enclosures' in entry and entry.enclosures:
-        media_url = entry.enclosures[0].href
-    else:
-        # fallback: search for audio
+    # --- Extract audio URL just like your Node approach ---
+    media_url = None
+
+    # Try feedparser's enclosure objects
+    if getattr(entry, "enclosures", None):
+        media_url = entry.enclosures[0].get("href")
+
+    # Try raw fields feedparser does not surface well
+    if not media_url:
+        media_url = entry.get("media_content", [{}])[0].get("url")
+
+    # Try fallback: <enclosure url="">
+    if not media_url and "links" in entry:
+        for link in entry.links:
+            if link.get("rel") == "enclosure":
+                media_url = link.get("href")
+                break
+
+    # Final fallback: use <link> (often a webpage)
+    if not media_url:
         media_url = entry.get("link")
 
     if not media_url:
-        raise RuntimeError(f"No media link found in feed for {name}")
+        raise RuntimeError(f"No media link found for {name}")
 
-    # download audio
+    print(f"  → Raw media link: {media_url}")
+
+    # -----------------------------------------------------------------
+    # **Follow redirects aggressively**, some hosts require User-Agent
+    # -----------------------------------------------------------------
+    headers = {
+        "User-Agent": "Mozilla/5.0 (RSS Downloader; +https://example.com)"
+    }
+
+    print("Resolving redirects...")
+    r = requests.get(media_url, headers=headers, allow_redirects=True, stream=True)
+    final_url = r.url
+    print(f"  → Final resolved audio URL: {final_url}")
+
+    # -----------------------------------------------------------------
+    # Download audio
+    # -----------------------------------------------------------------
     audio_path = OUTPUT_DIR / f"{name}-raw"
-    print(f"Downloading: {media_url}")
-    r = requests.get(media_url)
-    with open(audio_path, "wb") as f:
-        f.write(r.content)
+    print(f"Downloading: {final_url}")
+
+    with requests.get(final_url, headers=headers, allow_redirects=True, stream=True) as r:
+        r.raise_for_status()
+        with open(audio_path, "wb") as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
 
     mp3_path = OUTPUT_DIR / f"{name}.mp3"
     convert_to_mp3(audio_path, mp3_path)
     make_json_metadata(mp3_path, name)
 
     audio_path.unlink()
+
 
 
 # ---------------------------------------------------------------------
