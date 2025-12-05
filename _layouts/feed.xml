@@ -2,7 +2,7 @@
 {%- assign episodes = site.static_files | where_exp: "file", "file.path contains 'media'" | where: "extname", ".mp3" | where: "basename", page.name  -%}
 {% assign data = site.data[page.name] %}
 {% assign output = data.output | default : {} %}
-{% assign length = output.duration_seconds | default : 1800 %}
+{% assign length = output.length_seconds| default : 1800 %}
 <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
 xmlns:podcast="https://podcastindex.org/namespace/1.0"
 xmlns:atom="http://www.w3.org/2005/Atom">
