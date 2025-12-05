@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from pydub import AudioSegment
 import yaml
+from io import BytesIO
 
 MEDIA_DIR = Path("media")
 MEDIA_DIR.mkdir(exist_ok=True)
@@ -140,22 +141,23 @@ def fetch_rss_episode(name, feed_url, trim_seconds=0):
 
     print("Resolving redirects...")
     r = requests.get(media_url, headers=headers, allow_redirects=True, stream=True)
+    r.raise_for_status()
     final_url = r.url
     print(f"  → Final resolved audio URL: {final_url}")
 
-    audio_path = MEDIA_DIR / f"{name}-raw"
-    print(f"Downloading: {final_url}")
-    with requests.get(final_url, headers=headers, allow_redirects=True, stream=True) as r:
-        r.raise_for_status()
-        with open(audio_path, "wb") as f:
-            for chunk in r.iter_content(chunk_size=8192):
-                f.write(chunk)
+    # Stream directly into pydub
+    print(f"Downloading and converting: {final_url}")
+    audio_data = BytesIO(r.content)  # load entire file into memory
+    audio = AudioSegment.from_file(audio_data)
+
+    if trim_seconds > 0:
+        print(f"  → Trimming first {trim_seconds} seconds")
+        audio = audio[trim_seconds * 1000:]  # pydub uses milliseconds
 
     mp3_path = MEDIA_DIR / f"{name}.mp3"
-    convert_to_mp3(audio_path, mp3_path, trim_seconds)
-    make_json_metadata(mp3_path, name, FEED_DIR)
+    audio.export(mp3_path, format="mp3", bitrate="64k")
 
-    audio_path.unlink()
+    make_json_metadata(mp3_path, name, FEED_DIR)
 
 
 # ---------------------------------------------------------------------
