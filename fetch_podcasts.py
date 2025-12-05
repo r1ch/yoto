@@ -160,7 +160,7 @@ def make_json_metadata(mp3_file, name):
 
     metadata = {
         "name": name,
-        "date": datetime.utcnow().isoformat(),
+        "date": datetime.now(timezone.utc).isoformat(),
         "length_seconds": len(audio) // 1000,
         "filename": str(mp3_file)
     }
