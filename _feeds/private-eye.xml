@@ -1,0 +1,10 @@
+---
+title: Private Eye
+short: private-eye.xml
+handler: grabber
+source: https://audioboom.com/channels/5112392.rss
+destination: media
+extension: mp3
+trim: 0
+uuid: 2bb7fd7a-49ea-4792-95f4-7c8a0461a1a2
+---
