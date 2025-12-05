@@ -20,35 +20,55 @@ with open("podcasts.yml", "r") as f:
 # BBC PODCASTS VIA get_iplayer
 # ---------------------------------------------------------------------
 def fetch_bbc_episode(name, pid):
-    print(f"Fetching BBC podcast: {name}")
+    print(f"Fetching BBC podcast series: {name}")
 
-    # get_iplayer command
-    cmd = [
+    # Step 1: get the list of episode PIDs
+    list_cmd = [
         "get_iplayer",
         f"--pid={pid}",
+        "--pid-recursive-list"
+    ]
+
+    result = subprocess.run(list_cmd, capture_output=True, text=True, check=True)
+    lines = result.stdout.strip().splitlines()
+
+    if len(lines) < 2:
+        raise RuntimeError(f"No episodes found for BBC series PID: {pid}")
+
+    # Equivalent to: tail -2 | head -1 | awk '{print $NF}'
+    latest_line = lines[-2]                      # second from last
+    latest_pid = latest_line.split()[-1]         # last field
+
+    print(f"  → Latest episode PID: {latest_pid}")
+
+    # Step 2: download the episode using resolved PID
+    dl_cmd = [
+        "get_iplayer",
+        f"--pid={latest_pid}",
         "--type=radio",
         "--force",
         "--nocopyright",
         "--output=tmp_download"
     ]
 
-    subprocess.run(cmd, check=True)
+    subprocess.run(dl_cmd, check=True)
 
-    # find downloaded file
+    # Step 3: find downloaded file
     files = list(Path("tmp_download").glob("*"))
     if not files:
         raise RuntimeError("Nothing downloaded from get_iplayer.")
 
     downloaded_file = files[0]
     mp3_path = OUTPUT_DIR / f"{name}.mp3"
-    json_path = OUTPUT_DIR / f"{name}.json"
 
     convert_to_mp3(downloaded_file, mp3_path)
     make_json_metadata(mp3_path, name)
 
+    # Cleanup
     for f in files:
         f.unlink()
     Path("tmp_download").rmdir()
+
 
 
 # ---------------------------------------------------------------------
