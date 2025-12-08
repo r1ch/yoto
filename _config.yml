@@ -9,3 +9,4 @@ defaults:
       type: "feeds"
     values:
       layout: "feed"
+      output_ext: ""
