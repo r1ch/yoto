@@ -167,12 +167,12 @@ def main():
     # Process BBC podcasts
     for item in config.get("bbc", []):
         trim_seconds = item.get("trim", 0)
-        fetch_bbc_episode(item["name"], item["pid"], trim_seconds)
+        fetch_bbc_episode(item["slug"], item["pid"], trim_seconds)
 
     # Process RSS podcasts
     for item in config.get("rss", []):
         trim_seconds = item.get("trim", 0)
-        fetch_rss_episode(item["name"], item["feed"], trim_seconds)
+        fetch_rss_episode(item["slug"], item["feed"], trim_seconds)
 
 
 if __name__ == "__main__":
