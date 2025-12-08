@@ -1,8 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-{%- assign episodes = site.static_files | where_exp: "file", "file.path contains 'media'" | where: "extname", ".mp3" | where: "basename", page.name  -%}
-{% assign data = site.data[page.name] %}
-{% assign output = data.output | default : {} %}
-{% assign length = output.length_seconds| default : 1800 %}
+{%- assign episodes = site.static_files | where_exp: "file", "file.path contains 'media'" | where: "extname", ".mp3" | where: "basename", page.slug  -%}
 <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
 xmlns:podcast="https://podcastindex.org/namespace/1.0"
 xmlns:atom="http://www.w3.org/2005/Atom">
@@ -16,7 +13,7 @@ xmlns:atom="http://www.w3.org/2005/Atom">
         <itunes:category text='Comedy' />
         <itunes:explicit>true</itunes:explicit>
         <language>en</language>
-        <podcast:guid>{{ page.name }}:{{ site.github.build_revision }}</podcast:guid>
+        <podcast:guid>{{ page.slug }}:{{ site.github.build_revision }}</podcast:guid>
 
         {%- for episode in episodes -%}
         <item>
@@ -28,7 +25,7 @@ xmlns:atom="http://www.w3.org/2005/Atom">
             <itunes:duration>{{length | round }}</itunes:duration>
             <enclosure url='{{ episode.path | absolute_url }}' length='{{length | round }}' type='audio/mpeg'/>
             <guid>{{ episode.path | absolute_url }}:{{ site.github.build_revision }}</guid>
-            <pubDate>{{ page.fetched | date_to_rfc822 }}</pubDate>
+            <pubDate>{{ page.date | date_to_rfc822 }}</pubDate>
         </item>
         {%- endfor -%}
             
