@@ -37,17 +37,18 @@ def convert_to_mp3(input_file, output_file, trim_seconds=0):
 # ---------------------------------------------------------------------
 # Create JSON metadata
 # ---------------------------------------------------------------------
-def make_json_metadata(mp3_file, name, metadata_dir):
+def make_json_metadata(mp3_file, name, slug, metadata_dir):
     audio = AudioSegment.from_mp3(mp3_file)
 
     metadata = {
         "name": name,
+        "slug": slug,
         "date": datetime.now(timezone.utc).isoformat(),
         "length_seconds": len(audio) // 1000,
         "filename": str(mp3_file)
     }
 
-    json_file = metadata_dir / f"{mp3_file.stem}.json"
+    json_file = metadata_dir / f"{slug}.json"
     with open(json_file, "w") as f:
         json.dump(metadata, f, indent=2)
 
@@ -57,7 +58,7 @@ def make_json_metadata(mp3_file, name, metadata_dir):
 # ---------------------------------------------------------------------
 # BBC PODCASTS VIA get_iplayer
 # ---------------------------------------------------------------------
-def fetch_bbc_episode(name, pid, trim_seconds=0):
+def fetch_bbc_episode(name, slug, pid, trim_seconds=0):
     print(f"Fetching BBC podcast series: {name}")
 
     # Step 1: get the list of episode PIDs
@@ -94,10 +95,10 @@ def fetch_bbc_episode(name, pid, trim_seconds=0):
         raise RuntimeError("Nothing downloaded from get_iplayer.")
 
     downloaded_file = files[0]
-    mp3_path = MEDIA_DIR / f"{name}.mp3"
+    mp3_path = MEDIA_DIR / f"{slug}.mp3"
 
     convert_to_mp3(downloaded_file, mp3_path, trim_seconds)
-    make_json_metadata(mp3_path, name, FEED_DIR)
+    make_json_metadata(mp3_path, name, slug, FEED_DIR)
 
     # Cleanup
     for f in files:
@@ -108,7 +109,7 @@ def fetch_bbc_episode(name, pid, trim_seconds=0):
 # ---------------------------------------------------------------------
 # RSS PODCASTS
 # ---------------------------------------------------------------------
-def fetch_rss_episode(name, feed_url, trim_seconds=0):
+def fetch_rss_episode(name, slug, feed_url, trim_seconds=0):
     print(f"Fetching RSS podcast: {name}")
 
     feed = feedparser.parse(feed_url)
@@ -154,10 +155,10 @@ def fetch_rss_episode(name, feed_url, trim_seconds=0):
         print(f"  → Trimming first {trim_seconds} seconds")
         audio = audio[trim_seconds * 1000:]  # pydub uses milliseconds
 
-    mp3_path = MEDIA_DIR / f"{name}.mp3"
+    mp3_path = MEDIA_DIR / f"{slug}.mp3"
     audio.export(mp3_path, format="mp3", bitrate="64k")
 
-    make_json_metadata(mp3_path, name, FEED_DIR)
+    make_json_metadata(mp3_path, name, slug, FEED_DIR)
 
 
 # ---------------------------------------------------------------------
@@ -167,12 +168,12 @@ def main():
     # Process BBC podcasts
     for item in config.get("bbc", []):
         trim_seconds = item.get("trim", 0)
-        fetch_bbc_episode(item["slug"], item["pid"], trim_seconds)
+        fetch_bbc_episode(item["name"], item["slug"], item["pid"], trim_seconds)
 
     # Process RSS podcasts
     for item in config.get("rss", []):
         trim_seconds = item.get("trim", 0)
-        fetch_rss_episode(item["slug"], item["feed"], trim_seconds)
+        fetch_rss_episode(item["name"], item["slug"], item["feed"], trim_seconds)
 
 
 if __name__ == "__main__":
