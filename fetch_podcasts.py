@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import feedparser
-import json
 import os
 import subprocess
 import requests
@@ -35,9 +34,9 @@ def convert_to_mp3(input_file, output_file, trim_seconds=0):
 
 
 # ---------------------------------------------------------------------
-# Create JSON metadata
+# Create YAML metadata
 # ---------------------------------------------------------------------
-def make_json_metadata(mp3_file, name, slug, metadata_dir):
+def make_metadata(mp3_file, name, slug, metadata_dir):
     audio = AudioSegment.from_mp3(mp3_file)
 
     metadata = {
@@ -48,13 +47,13 @@ def make_json_metadata(mp3_file, name, slug, metadata_dir):
         "filename": str(mp3_file)
     }
 
-    json_file = metadata_dir / f"{slug}.json"
-    with open(json_file, "w") as f:
+    yaml_file = metadata_dir / f"{slug}.yml"
+    with open(yaml_file, "w") as f:
         f.write("---\n")
+        yaml.dump(metadata, f, sort_keys=False)
         f.write("---\n")
-        json.dump(metadata, f, indent=2)
 
-    print(f"Created metadata: {json_file}")
+    print(f"Created metadata: {yaml_file}")
 
 
 # ---------------------------------------------------------------------
@@ -100,7 +99,7 @@ def fetch_bbc_episode(name, slug, pid, trim_seconds=0):
     mp3_path = MEDIA_DIR / f"{slug}.mp3"
 
     convert_to_mp3(downloaded_file, mp3_path, trim_seconds)
-    make_json_metadata(mp3_path, name, slug, FEED_DIR)
+    make_metadata(mp3_path, name, slug, FEED_DIR)
 
     # Cleanup
     for f in files:
@@ -160,7 +159,7 @@ def fetch_rss_episode(name, slug, feed_url, trim_seconds=0):
     mp3_path = MEDIA_DIR / f"{slug}.mp3"
     audio.export(mp3_path, format="mp3", bitrate="64k")
 
-    make_json_metadata(mp3_path, name, slug, FEED_DIR)
+    make_metadata(mp3_path, name, slug, FEED_DIR)
 
 
 # ---------------------------------------------------------------------
