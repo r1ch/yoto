@@ -50,6 +50,8 @@ def make_json_metadata(mp3_file, name, slug, metadata_dir):
 
     json_file = metadata_dir / f"{slug}.json"
     with open(json_file, "w") as f:
+        f.write("---\n")
+        f.write("---\n")
         json.dump(metadata, f, indent=2)
 
     print(f"Created metadata: {json_file}")
