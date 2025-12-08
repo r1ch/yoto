@@ -1,7 +1,7 @@
 collections:
   feeds:
     output: true
-    permalink: /:name/feed.xml
+    permalink: /:name/:slug.xml
 
 defaults:
   - scope:
