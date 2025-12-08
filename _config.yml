@@ -1,7 +1,7 @@
 collections:
   feeds:
     output: true
-    permalink: /:name/feed
+    permalink: /:name/feed.xml
 
 defaults:
   - scope:
@@ -9,4 +9,3 @@ defaults:
       type: "feeds"
     values:
       layout: "feed"
-      output_ext: ""
