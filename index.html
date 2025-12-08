@@ -13,7 +13,7 @@ layout: default
       {%- for feed in site.feeds -%}
     <tr>
       <td><a href="{{ feed.url | absolute_url }}">{{ feed.name }}</a></td>
-      <td><a href="{{ feed.filename | absolute_url }}">{{ file }}</a></td>
+      <td><a href="{{ feed.filename | absolute_url }}">{{ feed.filename }}</a></td>
       <td>{{feed.date}}</td>
     </tr>
       {%- endfor -%}
