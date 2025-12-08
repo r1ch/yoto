@@ -47,7 +47,7 @@ def make_metadata(mp3_file, name, slug, metadata_dir):
         "filename": str(mp3_file)
     }
 
-    yaml_file = metadata_dir / f"{slug}.yml"
+    yaml_file = metadata_dir / f"{slug}.xml"
     with open(yaml_file, "w") as f:
         f.write("---\n")
         yaml.dump(metadata, f, sort_keys=False)
