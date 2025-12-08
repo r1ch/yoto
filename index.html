@@ -1,8 +1,6 @@
 ---
 layout: default
 ---
-{%- assign episodes = site.static_files | where_exp: "file", "file.path contains 'media'" | where: "extname", ".mp3" -%}
-{{episodes|jsonify}}
 <h2> Feeds: </h2>
 
 <table>
