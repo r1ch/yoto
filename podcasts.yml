@@ -1,17 +1,22 @@
 bbc:
   - name: "Friday Night Comedy"
+    slug: "friday-night-comedy"
     pid: "p02pc9pj"
     
   - name: "Strong Message Here"
+    slug: "strong-message-here"
     pid: "m002mz5f"
 
 rss:
   - name: "The Bugle"
+    slug: "the-bugle"
     feed: "https://feeds.acast.com/public/shows/thebugle"
 
   - name: "No Such Thing As A Fish"
+    slug: "no-such-thing-as-a-fish"
     feed: "https://audioboom.com/channels/2399216.rss"
 
   - name: "Private Eye"
+    slug: "private-eye"
     feed: "https://audioboom.com/channels/5112392.rss"
 
