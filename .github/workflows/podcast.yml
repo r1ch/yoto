@@ -75,34 +75,23 @@ jobs:
           https://raw.githubusercontent.com/get-iplayer/get_iplayer/master/get_iplayer
         chmod +x get_iplayer
         sudo mv get_iplayer /usr/local/bin/
+        
 
     # -----------------------------------------------------------
-    # 7. DEBUG ENV
-    # -----------------------------------------------------------
-    - name: Debug Perl & environment
-      run: |
-        echo "=== PATH ==="
-        echo "$PATH"
-        which perl
-        which cpanm || true
-        ls -R $HOME/perl5 || true
-        get_iplayer --basic-help || echo "get_iplayer FAILED"
-
-    # -----------------------------------------------------------
-    # 8. PYTHON DEPS
+    # 7. PYTHON DEPS
     # -----------------------------------------------------------
     - name: Install Python deps
       run: |
         pip3 install --quiet feedparser pydub requests pyyaml
 
     # -----------------------------------------------------------
-    # 9. RUN SCRIPT
+    # 8. RUN SCRIPT
     # -----------------------------------------------------------
     - name: Run fetch script
       run: python3 fetch_podcasts.py
 
     # -----------------------------------------------------------
-    # 10. COMMIT CHANGES
+    # 9. COMMIT CHANGES
     # -----------------------------------------------------------
     - name: Commit changes
       run: |
