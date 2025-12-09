@@ -15,7 +15,7 @@ layout: default
       <td><a href="{{ feed.url | absolute_url }}">{{ feed.name }}</a></td>
       <td><a href="{{ feed.filename | absolute_url }}">{{ feed.filename }}</a></td>
       <td>{{feed.date}}</td>
-      <td>{{site.state[feed.slug]}}</td>
+      <td>{{site.state[feed.slug] | jsonify}}</td>
     </tr>
       {%- endfor -%}
   </tbody>  
