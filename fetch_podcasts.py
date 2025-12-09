@@ -15,7 +15,7 @@ MEDIA_DIR.mkdir(exist_ok=True)
 FEED_DIR = Path("_feeds")
 FEED_DIR.mkdir(exist_ok=True)
 
-STATE_FILE = Path("state.yml")
+STATE_FILE = Path("_data/state.yml")
 
 with open("podcasts.yml", "r") as f:
     config = yaml.safe_load(f)
