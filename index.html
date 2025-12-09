@@ -6,7 +6,7 @@ layout: default
 <table>
   <thead>
     <tr>
-      <th>Feed Link</th><th>Media Link</th><th>Last Fetch</th>
+      <th>Feed Link</th><th>Media Link</th><th>Last Fetch</th><th>State</th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +15,7 @@ layout: default
       <td><a href="{{ feed.url | absolute_url }}">{{ feed.name }}</a></td>
       <td><a href="{{ feed.filename | absolute_url }}">{{ feed.filename }}</a></td>
       <td>{{feed.date}}</td>
+      <td>{{site.state[feed.slug]}}</td>
     </tr>
       {%- endfor -%}
   </tbody>  
