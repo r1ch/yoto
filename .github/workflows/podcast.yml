@@ -86,7 +86,7 @@ jobs:
         which perl
         which cpanm || true
         ls -R $HOME/perl5 || true
-        get_iplayer --version || echo "get_iplayer FAILED"
+        get_iplayer --basic-help || echo "get_iplayer FAILED"
 
     # -----------------------------------------------------------
     # 8. PYTHON DEPS
