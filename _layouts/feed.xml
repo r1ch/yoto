@@ -23,7 +23,7 @@ xmlns:atom="http://www.w3.org/2005/Atom">
             <itunes:explicit>true</itunes:explicit>
             <link>{{ '/' | absolute_url }}</link>
             <itunes:duration>{{ page.length | round }}</itunes:duration>
-            <enclosure url='{{ episode.path | absolute_url }}' length='{{length | round }}' type='audio/mpeg'/>
+            <enclosure url='{{ episode.path | absolute_url }}' length='{{ page.length | round }}' type='audio/mpeg'/>
             <guid>{{ episode.path | absolute_url }}:{{ site.github.build_revision }}</guid>
             <pubDate>{{ page.date | date_to_rfc822 }}</pubDate>
         </item>
