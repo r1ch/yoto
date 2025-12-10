@@ -14,7 +14,7 @@ layout: default
     <tr>
       <td><a href="{{ feed.url | absolute_url }}">{{ feed.name }}</a></td>
       <td><a href="{{ feed.filename | absolute_url }}">{{ feed.filename }}</a></td>
-      <td>{{feed.date}}</td>
+      <td>{{feed.date | date: '%a, %b %e, %H:%M'}}</td>
       <td><script>
         document.write(Object.values({{site.data.state[feed.slug] | jsonify}})?.[0]||"None")
       </script></td>
