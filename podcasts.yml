@@ -9,11 +9,6 @@ bbc:
     pid: "m0024cp6"
     trim: 0
 
-  - name: "No Ads Things As A Fish"
-    slug: "no-ads-thing-as-a-fish"
-    pid: "p0gwnyjd"
-    trim: 0
-
 rss:
   - name: "The Bugle"
     slug: "the-bugle"
