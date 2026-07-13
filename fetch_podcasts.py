@@ -80,59 +80,78 @@ def make_metadata(mp3_file, name, slug, metadata_dir):
 def fetch_bbc_episode(name, slug, pid, trim_seconds=0):
     print(f"Fetching BBC podcast series: {name}")
 
-    # Step 1: get the list of episode PIDs
-    list_cmd = [
-        "get_iplayer",
-        f"--pid={pid}",
-        "--pid-recursive-list"
-    ]
+    # Try downloading via get_iplayer first
+    try:
+        # Step 1: get the list of episode PIDs
+        list_cmd = [
+            "get_iplayer",
+            f"--pid={pid}",
+            "--pid-recursive-list"
+        ]
 
-    result = subprocess.run(list_cmd, capture_output=True, text=True, check=True)
-    lines = result.stdout.strip().splitlines()
+        result = subprocess.run(list_cmd, capture_output=True, text=True, check=True)
+        lines = result.stdout.strip().splitlines()
 
-    if len(lines) < 2:
-        raise RuntimeError(f"No episodes found for BBC series PID: {pid}")
+        if len(lines) < 2:
+            raise RuntimeError(f"No episodes found for BBC series PID: {pid}")
 
-    latest_line = lines[-2]  # second from last
-    latest_pid = latest_line.split()[-1]  # last field
-    print(f"  → Latest episode PID: {latest_pid}")
+        latest_line = lines[-2]  # second from last
+        latest_pid = latest_line.split()[-1]  # last field
+        print(f"  → Latest episode PID (via get_iplayer): {latest_pid}")
 
-    # SKIP IF ALREADY DOWNLOADED
-    previous_pid = state.get(slug, {}).get("last_pid")
-    if previous_pid == latest_pid:
-        print(f"  → Skipping (already downloaded PID {latest_pid})")
+        # SKIP IF ALREADY DOWNLOADED
+        previous_pid = state.get(slug, {}).get("last_pid")
+        if previous_pid == latest_pid:
+            print(f"  → Skipping (already downloaded PID {latest_pid})")
+            return
+
+        # Step 2: download the episode using resolved PID
+        dl_cmd = [
+            "get_iplayer",
+            f"--pid={latest_pid}",
+            "--type=radio",
+            "--force",
+            "--nocopyright",
+            "--output=tmp_download"
+        ]
+        subprocess.run(dl_cmd, check=True)
+
+        # Step 3: find downloaded file
+        files = list(Path("tmp_download").glob("*"))
+        if not files:
+            raise RuntimeError("Nothing downloaded from get_iplayer.")
+
+        downloaded_file = files[0]
+        mp3_path = MEDIA_DIR / f"{slug}.mp3"
+
+        convert_to_mp3(downloaded_file, mp3_path, trim_seconds)
+        make_metadata(mp3_path, name, slug, FEED_DIR)
+
+        # Update state
+        state.setdefault(slug, {})["last_pid"] = latest_pid
+        state.setdefault(slug, {})["last_id"] = f"urn:bbc:podcast:{latest_pid}"
+        save_state(state)
+
+        # Cleanup
+        for f in files:
+            f.unlink()
+        Path("tmp_download").rmdir()
         return
 
-    # Step 2: download the episode using resolved PID
-    dl_cmd = [
-        "get_iplayer",
-        f"--pid={latest_pid}",
-        "--type=radio",
-        "--force",
-        "--nocopyright",
-        "--output=tmp_download"
-    ]
-    subprocess.run(dl_cmd, check=True)
-
-    # Step 3: find downloaded file
-    files = list(Path("tmp_download").glob("*"))
-    if not files:
-        raise RuntimeError("Nothing downloaded from get_iplayer.")
-
-    downloaded_file = files[0]
-    mp3_path = MEDIA_DIR / f"{slug}.mp3"
-
-    convert_to_mp3(downloaded_file, mp3_path, trim_seconds)
-    make_metadata(mp3_path, name, slug, FEED_DIR)
-
-    # Update state
-    state.setdefault(slug, {})["last_pid"] = latest_pid
-    save_state(state)
-
-    # Cleanup
-    for f in files:
-        f.unlink()
-    Path("tmp_download").rmdir()
+    except Exception as e:
+        print(f"WARNING: get_iplayer download failed: {e}")
+        if isinstance(e, subprocess.CalledProcessError):
+            print(f"  → get_iplayer stdout: {e.stdout}")
+            print(f"  → get_iplayer stderr: {e.stderr}")
+        print("  → Falling back to standard BBC RSS feed...")
+        
+        # Fallback to RSS feed
+        try:
+            feed_url = f"https://podcasts.files.bbci.co.uk/{pid}.rss"
+            fetch_rss_episode(name, slug, feed_url, trim_seconds)
+        except Exception as rss_err:
+            print(f"ERROR: RSS fallback also failed: {rss_err}")
+            raise RuntimeError(f"Both get_iplayer and RSS fallback failed for {name}") from e
 
 
 # ---------------------------------------------------------------------
@@ -200,6 +219,10 @@ def fetch_rss_episode(name, slug, feed_url, trim_seconds=0):
 
     # Update state
     state.setdefault(slug, {})["last_id"] = episode_id
+    # If this is a BBC RSS feed, update last_pid too to stay in sync
+    if str(episode_id).startswith("urn:bbc:"):
+        episode_pid = str(episode_id).split(":")[-1]
+        state.setdefault(slug, {})["last_pid"] = episode_pid
     save_state(state)
 
 
