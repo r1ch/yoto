@@ -1,0 +1,13 @@
+---
+name: Friday Night Comedy
+slug: friday-night-comedy
+catchup: false
+date: '2026-11-20T00:00:00Z'
+episodes:
+- id: urn:bbc:podcast:p0pp1bhl
+  title: The Naked Week 3. Milburn's Mines and a Shenzhen Shindig
+  date: '2026-11-20T00:00:00Z'
+  path: /media/friday-night-comedy/920d4b5284cb.mp3
+  seconds: 1678
+  bytes: 13431213
+---

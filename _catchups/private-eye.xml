@@ -1,0 +1,19 @@
+---
+name: Private Eye
+slug: private-eye
+catchup: true
+date: '2026-10-27T16:46:27+00:00'
+episodes:
+- id: audioboom-01a17e41-8b8e-7095-8b78-8507843452dc
+  title: '194: Hot Cheeks and Cheesecake'
+  date: '2026-10-27T16:46:27+00:00'
+  path: /media/private-eye/551c3b4435ef.mp3
+  seconds: 2694
+  bytes: 21556079
+- id: audioboom-01a13648-d1f7-728e-904d-68980533f890
+  title: '193: The Jeffrey Archer Tribute Show'
+  date: '2026-10-13T17:21:44+00:00'
+  path: /media/private-eye/05c3e82f036d.mp3
+  seconds: 2602
+  bytes: 20824024
+---

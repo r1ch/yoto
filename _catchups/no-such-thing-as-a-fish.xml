@@ -1,0 +1,19 @@
+---
+name: No Such Thing As A Fish
+slug: no-such-thing-as-a-fish
+catchup: true
+date: '2026-11-15T23:55:00+00:00'
+episodes:
+- id: audioboom-01a1d49d-cb1e-7fa0-977e-bf406d343b61
+  title: 'Little Fish: I''m glad you asked'
+  date: '2026-11-15T23:55:00+00:00'
+  path: /media/no-such-thing-as-a-fish/5db7bb0e6c30.mp3
+  seconds: 1669
+  bytes: 13358646
+- id: audioboom-01a1d00a-e55a-7f8f-a95d-ec554194037c
+  title: No Such Thing As A Necklace On A Melon
+  date: '2026-11-12T23:55:00+00:00'
+  path: /media/no-such-thing-as-a-fish/b46f69e81910.mp3
+  seconds: 3511
+  bytes: 28091289
+---

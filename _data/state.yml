@@ -1,0 +1,126 @@
+friday-night-comedy:
+  checked: '2026-11-21T01:51:58+00:00'
+  episodes:
+  - bytes: 13431213
+    date: '2026-11-20T00:00:00Z'
+    file: media/friday-night-comedy/920d4b5284cb.mp3
+    id: urn:bbc:podcast:p0pp1bhl
+    seconds: 1678
+    title: The Naked Week 3. Milburn's Mines and a Shenzhen Shindig
+  - bytes: 13446957
+    date: '2026-11-13T00:00:00Z'
+    file: media/friday-night-comedy/5a783709263f.mp3
+    id: urn:bbc:podcast:p0pmxkly
+    seconds: 1680
+    title: The Naked Week 2. I'm A Celebrity Get Me Into Jail
+  - bytes: 13368237
+    date: '2026-11-06T00:00:00Z'
+    file: media/friday-night-comedy/6baf678245f7.mp3
+    id: urn:bbc:podcast:p0plmfs9
+    seconds: 1670
+    title: The Naked Week 1. Up The Injunction
+no-such-thing-as-a-fish:
+  checked: '2026-11-21T01:52:00+00:00'
+  episodes:
+  - bytes: 28749366
+    date: '2026-11-19T23:55:00+00:00'
+    file: media/no-such-thing-as-a-fish/90c42dd27a2f.mp3
+    id: audioboom-01a1f46c-75d0-7d6f-bc80-98d38bee810c
+    seconds: 3593
+    title: No Such Thing As An Oat Milk Newspaper
+  - bytes: 13358646
+    date: '2026-11-15T23:55:00+00:00'
+    file: media/no-such-thing-as-a-fish/5db7bb0e6c30.mp3
+    id: audioboom-01a1d49d-cb1e-7fa0-977e-bf406d343b61
+    seconds: 1669
+    title: 'Little Fish: I''m glad you asked'
+  - bytes: 28091289
+    date: '2026-11-12T23:55:00+00:00'
+    file: media/no-such-thing-as-a-fish/b46f69e81910.mp3
+    id: audioboom-01a1d00a-e55a-7f8f-a95d-ec554194037c
+    seconds: 3511
+    title: No Such Thing As A Necklace On A Melon
+private-eye:
+  checked: '2026-11-21T01:52:00+00:00'
+  episodes:
+  - bytes: 18065702
+    date: '2026-11-10T16:31:34+00:00'
+    file: media/private-eye/e58a19f7363e.mp3
+    id: audioboom-01a1c64c-f52d-727c-a788-d253e645e2ff
+    seconds: 2258
+    title: '195: Branded'
+  - bytes: 21556079
+    date: '2026-10-27T16:46:27+00:00'
+    file: media/private-eye/551c3b4435ef.mp3
+    id: audioboom-01a17e41-8b8e-7095-8b78-8507843452dc
+    seconds: 2694
+    title: '194: Hot Cheeks and Cheesecake'
+  - bytes: 20824024
+    date: '2026-10-13T17:21:44+00:00'
+    file: media/private-eye/05c3e82f036d.mp3
+    id: audioboom-01a13648-d1f7-728e-904d-68980533f890
+    seconds: 2602
+    title: '193: The Jeffrey Archer Tribute Show'
+strong-message-here:
+  checked: '2026-11-21T01:51:58+00:00'
+  episodes:
+  - bytes: 12592557
+    date: '2026-11-19T00:00:00Z'
+    file: media/strong-message-here/cbd4381b54c9.mp3
+    id: urn:bbc:podcast:m00349s8
+    seconds: 1574
+    title: Hiding in Plain Sight (with Natalie Haynes and Ayesha Hazarika)
+  - bytes: 15326637
+    date: '2026-11-12T00:00:00Z'
+    file: media/strong-message-here/02f3cce5e13c.mp3
+    id: urn:bbc:podcast:m003417p
+    seconds: 1915
+    title: The Same Old Arguments (with Tim Shipman)
+  - bytes: 15532461
+    date: '2026-11-05T00:00:00Z'
+    file: media/strong-message-here/3f7da46c7397.mp3
+    id: urn:bbc:podcast:m0033pd7
+    seconds: 1941
+    title: Saddam Hussein's Cheesecake Factory (with Nish Kumar)
+the-bugle:
+  checked: '2026-11-21T01:51:59+00:00'
+  episodes:
+  - bytes: 24906649
+    date: '2026-11-18T16:00:00+00:00'
+    file: media/the-bugle/f426c5267751.mp3
+    id: 6afdbe4a21fa6314af3a76b5
+    seconds: 3113
+    title: Functioning Planet or Total F*cking Chaos?
+  - bytes: 21201650
+    date: '2026-11-11T14:00:00+00:00'
+    file: media/the-bugle/8fa9e152f9aa.mp3
+    id: 6af455460da1a3089e9fea6e
+    seconds: 2650
+    title: Even the voices in Trump's head aren't talking to him anymore!
+  - bytes: 14772184
+    date: '2026-11-05T21:00:00+00:00'
+    file: media/the-bugle/50c722a07a13.mp3
+    id: 6aece7d68cf6e857f945d66e
+    seconds: 1846
+    title: 'SNAP BUGLE: Blue Wave Washes over Washington'
+the-rest-is-politics-us:
+  checked: '2026-11-21T01:52:00+00:00'
+  episodes:
+  - bytes: 16833559
+    date: '2026-11-19T17:40:00+00:00'
+    file: media/the-rest-is-politics-us/f6a635d940fb.mp3
+    id: a19ef826-e43c-11f1-b63e-ebadaf9530cf
+    seconds: 2104
+    title: '244. Trump, Xi and Putin: Who Really Won?'
+  - bytes: 18458166
+    date: '2026-11-16T21:45:00+00:00'
+    file: media/the-rest-is-politics-us/5ef1fea294d3.mp3
+    id: 38004dac-e1ee-11f1-a7b0-676eb073f6d5
+    seconds: 2307
+    title: '243. Flight Chaos: Is Trump’s White House to Blame?'
+  - bytes: 16107355
+    date: '2026-11-11T20:15:00+00:00'
+    file: media/the-rest-is-politics-us/6d52cfbc89a4.mp3
+    id: 94d2e06e-dde1-11f1-9afd-ff8557e96bec
+    seconds: 2013
+    title: 242. What Everyone Missed in Hegseth’s Impeachment Drama

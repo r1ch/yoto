@@ -1,0 +1,19 @@
+---
+name: Friday Night Comedy
+slug: friday-night-comedy
+catchup: true
+date: '2026-11-13T00:00:00Z'
+episodes:
+- id: urn:bbc:podcast:p0pmxkly
+  title: The Naked Week 2. I'm A Celebrity Get Me Into Jail
+  date: '2026-11-13T00:00:00Z'
+  path: /media/friday-night-comedy/5a783709263f.mp3
+  seconds: 1680
+  bytes: 13446957
+- id: urn:bbc:podcast:p0plmfs9
+  title: The Naked Week 1. Up The Injunction
+  date: '2026-11-06T00:00:00Z'
+  path: /media/friday-night-comedy/6baf678245f7.mp3
+  seconds: 1670
+  bytes: 13368237
+---

@@ -1,0 +1,19 @@
+---
+name: Strong Message Here
+slug: strong-message-here
+catchup: true
+date: '2026-11-12T00:00:00Z'
+episodes:
+- id: urn:bbc:podcast:m003417p
+  title: The Same Old Arguments (with Tim Shipman)
+  date: '2026-11-12T00:00:00Z'
+  path: /media/strong-message-here/02f3cce5e13c.mp3
+  seconds: 1915
+  bytes: 15326637
+- id: urn:bbc:podcast:m0033pd7
+  title: Saddam Hussein's Cheesecake Factory (with Nish Kumar)
+  date: '2026-11-05T00:00:00Z'
+  path: /media/strong-message-here/3f7da46c7397.mp3
+  seconds: 1941
+  bytes: 15532461
+---

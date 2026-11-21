@@ -1,0 +1,19 @@
+---
+name: The Bugle
+slug: the-bugle
+catchup: true
+date: '2026-11-11T14:00:00+00:00'
+episodes:
+- id: 6af455460da1a3089e9fea6e
+  title: Even the voices in Trump's head aren't talking to him anymore!
+  date: '2026-11-11T14:00:00+00:00'
+  path: /media/the-bugle/8fa9e152f9aa.mp3
+  seconds: 2650
+  bytes: 21201650
+- id: 6aece7d68cf6e857f945d66e
+  title: 'SNAP BUGLE: Blue Wave Washes over Washington'
+  date: '2026-11-05T21:00:00+00:00'
+  path: /media/the-bugle/50c722a07a13.mp3
+  seconds: 1846
+  bytes: 14772184
+---

@@ -1,0 +1,119 @@
+name: Update Podcasts
+
+on:
+  schedule:
+    - cron: "55 20 * * *"
+    # Friday Night Comedy appears on BBC Sounds at 19:00 UTC on Fridays
+    - cron: "37 19 * * 5"
+  workflow_dispatch:
+
+jobs:
+  update:
+    # Pinned: ubuntu-latest became 26.04 (late Oct 2026) - no 'libxml2' package
+    # there, and its newer Python lacks audioop, which pydub needs.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+
+    steps:
+    # -----------------------------------------------------------
+    # 1. CHECKOUT
+    # -----------------------------------------------------------
+    - name: Checkout
+      uses: actions/checkout@v6
+      with:
+        persist-credentials: true
+
+    # -----------------------------------------------------------
+    # 2. CACHE PERL + CPANM
+    # -----------------------------------------------------------
+    - name: Cache Perl modules
+      uses: actions/cache@v6
+      with:
+        path: |
+          ~/perl5
+          ~/.cpanm
+        key: ${{ runner.os }}-perl-${{ hashFiles('fetch_podcasts.py', 'podcasts.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-perl-
+
+    # -----------------------------------------------------------
+    # 3. SYSTEM DEPS
+    # -----------------------------------------------------------
+    - name: Install system deps
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          cpanminus \
+          atomicparsley \
+          ffmpeg \
+          libxml2-dev libxslt1-dev
+
+    # -----------------------------------------------------------
+    # 4. PERL LOCAL::LIB SETUP
+    # -----------------------------------------------------------
+    - name: Setup Perl local::lib
+      run: |
+        echo "PERL_LOCAL_LIB_ROOT=$HOME/perl5" >> $GITHUB_ENV
+        echo "PERL5LIB=$HOME/perl5/lib/perl5" >> $GITHUB_ENV
+        echo "PERL_MB_OPT=--install_base=$HOME/perl5" >> $GITHUB_ENV
+        echo "PERL_MM_OPT=INSTALL_BASE=$HOME/perl5" >> $GITHUB_ENV
+        echo "PATH=$HOME/perl5/bin:$PATH" >> $GITHUB_ENV
+
+    # -----------------------------------------------------------
+    # 5. INSTALL REQUIRED PERL MODULES
+    # -----------------------------------------------------------
+    - name: Install Perl modules
+      run: |
+        cpanm --quiet --notest \
+          LWP \
+          LWP::Protocol::https \
+          Mojolicious \
+          XML::LibXML \
+          CGI
+
+    # -----------------------------------------------------------
+    # 6. INSTALL GET_IPLAYER
+    # -----------------------------------------------------------
+    - name: Install get_iplayer
+      run: |
+        # Pinned to a release so an upstream change can't break the nightly run.
+        # Newer releases: https://github.com/get-iplayer/get_iplayer/releases
+        curl -fsSL -o get_iplayer \
+          https://raw.githubusercontent.com/get-iplayer/get_iplayer/v3.36/get_iplayer
+        chmod +x get_iplayer
+        sudo mv get_iplayer /usr/local/bin/
+        
+
+    # -----------------------------------------------------------
+    # 7. PYTHON DEPS
+    # -----------------------------------------------------------
+    - name: Install Python deps
+      run: |
+        pip3 install --quiet feedparser pydub requests pyyaml
+
+    # -----------------------------------------------------------
+    # 8. RUN SCRIPT
+    # -----------------------------------------------------------
+    - name: Run fetch script
+      id: fetch
+      run: python3 fetch_podcasts.py
+
+    # -----------------------------------------------------------
+    # 9. COMMIT CHANGES
+    # -----------------------------------------------------------
+    - name: Commit changes
+      # Still commit the podcasts that worked if one of them failed.
+      if: ${{ !cancelled() && steps.fetch.outcome != 'skipped' }}
+      # Each update replaces main with one fresh commit (no history), so the
+      # repo holds only the current MP3s instead of every night's copy.
+      run: |
+        git config --global user.email "github-actions@users.noreply.github.com"
+        git config --global user.name "GitHub Actions"
+        git add media/ _feeds/ _catchups/ _data/
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+        else
+          git checkout --orphan fresh
+          git commit -m "Podcasts $(date -u +%F)"
+          git push --force origin fresh:main
+        fi

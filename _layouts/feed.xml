@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+xmlns:podcast="https://podcastindex.org/namespace/1.0"
+xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        {%- if page.catchup %}{% assign suffix = ' (catch-up)' %}{% assign guid_suffix = '-catchup' %}{% else %}{% assign suffix = '' %}{% assign guid_suffix = '' %}{% endif %}
+        <title>{{ page.name | append: suffix | xml_escape }}</title>
+        <author>Me</author>
+        <description>{% if page.catchup %}Older episodes{% else %}Latest episode{% endif %} of {{ page.name | xml_escape }} for Yoto</description>
+        <link>{{ '/' | absolute_url }}</link>
+        <atom:link href="{{ page.url | absolute_url }}" rel="self" type="application/rss+xml" />
+        {%- capture icon %}/icons/{{ page.slug }}.png{% endcapture %}
+        <itunes:image href='{{ icon | absolute_url }}'/>
+        <itunes:category text='Comedy' />
+        <itunes:explicit>true</itunes:explicit>
+        <language>en</language>
+        <podcast:guid>{{ page.slug }}{{ guid_suffix }}</podcast:guid>
+        {%- for episode in page.episodes %}
+        <item>
+            <title>{{ episode.title | xml_escape }}</title>
+            <author>Me</author>
+            <description>{{ page.name | xml_escape }}: {{ episode.title | xml_escape }}</description>
+            <itunes:explicit>true</itunes:explicit>
+            <link>{{ '/' | absolute_url }}</link>
+            <itunes:image href='{{ icon | absolute_url }}'/>
+            <itunes:duration>{{ episode.seconds }}</itunes:duration>
+            <enclosure url='{{ episode.path | absolute_url }}' length='{{ episode.bytes }}' type='audio/mpeg'/>
+            <guid isPermaLink="false">{{ episode.id | xml_escape }}</guid>
+            <pubDate>{{ episode.date | date_to_rfc822 }}</pubDate>
+        </item>
+        {%- endfor %}
+    </channel>
+</rss>
