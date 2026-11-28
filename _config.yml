@@ -1,0 +1,19 @@
+collections:
+  feeds:          # newest episode only
+    output: true
+    permalink: /:name/feed.xml
+  catchups:       # the older episodes
+    output: true
+    permalink: /:name/catchup.xml
+
+defaults:
+  - scope:
+      path: ""
+      type: "feeds"
+    values:
+      layout: "feed"
+  - scope:
+      path: ""
+      type: "catchups"
+    values:
+      layout: "feed"

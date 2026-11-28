@@ -1,0 +1,126 @@
+friday-night-comedy:
+  checked: '2026-11-28T03:00:10+00:00'
+  episodes:
+  - bytes: 13349997
+    date: '2026-11-27T00:00:00Z'
+    file: media/friday-night-comedy/1d2deeade28c.mp3
+    id: urn:bbc:podcast:p0pq7t8y
+    seconds: 1668
+    title: The Naked Week 4. Brejoining the Brexit Brouhaha
+  - bytes: 13431213
+    date: '2026-11-20T00:00:00Z'
+    file: media/friday-night-comedy/920d4b5284cb.mp3
+    id: urn:bbc:podcast:p0pp1bhl
+    seconds: 1678
+    title: The Naked Week 3. Milburn's Mines and a Shenzhen Shindig
+  - bytes: 13446957
+    date: '2026-11-13T00:00:00Z'
+    file: media/friday-night-comedy/5a783709263f.mp3
+    id: urn:bbc:podcast:p0pmxkly
+    seconds: 1680
+    title: The Naked Week 2. I'm A Celebrity Get Me Into Jail
+no-such-thing-as-a-fish:
+  checked: '2026-11-28T03:00:11+00:00'
+  episodes:
+  - bytes: 28907773
+    date: '2026-11-26T23:55:00+00:00'
+    file: media/no-such-thing-as-a-fish/31bed130d47a.mp3
+    id: audioboom-01a218d7-4645-70cb-a4c5-5a3c426cf5e2
+    seconds: 3613
+    title: No Such Thing As Mummery Mia
+  - bytes: 15307172
+    date: '2026-11-23T00:00:00+00:00'
+    file: media/no-such-thing-as-a-fish/27c229e3f6e7.mp3
+    id: audioboom-01a1fb93-a567-7d54-8ed0-35844d01bf57
+    seconds: 1913
+    title: 'Little Fish: Star-crossed blubber'
+  - bytes: 28749366
+    date: '2026-11-19T23:55:00+00:00'
+    file: media/no-such-thing-as-a-fish/90c42dd27a2f.mp3
+    id: audioboom-01a1f46c-75d0-7d6f-bc80-98d38bee810c
+    seconds: 3593
+    title: No Such Thing As An Oat Milk Newspaper
+private-eye:
+  checked: '2026-11-28T03:00:12+00:00'
+  episodes:
+  - bytes: 16171929
+    date: '2026-11-24T14:08:36+00:00'
+    file: media/private-eye/3360d7deaf48.mp3
+    id: audioboom-01a20de3-179e-7aaa-a4a2-c7f3cdc0668a
+    seconds: 2021
+    title: '196: Stephen Miller: The ICE Man Cometh'
+  - bytes: 18065702
+    date: '2026-11-10T16:31:34+00:00'
+    file: media/private-eye/e58a19f7363e.mp3
+    id: audioboom-01a1c64c-f52d-727c-a788-d253e645e2ff
+    seconds: 2258
+    title: '195: Branded'
+  - bytes: 21556079
+    date: '2026-10-27T16:46:27+00:00'
+    file: media/private-eye/551c3b4435ef.mp3
+    id: audioboom-01a17e41-8b8e-7095-8b78-8507843452dc
+    seconds: 2694
+    title: '194: Hot Cheeks and Cheesecake'
+strong-message-here:
+  checked: '2026-11-28T03:00:10+00:00'
+  episodes:
+  - bytes: 15686061
+    date: '2026-11-26T00:00:00Z'
+    file: media/strong-message-here/f861e03a928e.mp3
+    id: urn:bbc:podcast:m0034mg8
+    seconds: 1960
+    title: He's My Friend! (with Stewart Lee and Cody Dahler)
+  - bytes: 12592557
+    date: '2026-11-19T00:00:00Z'
+    file: media/strong-message-here/cbd4381b54c9.mp3
+    id: urn:bbc:podcast:m00349s8
+    seconds: 1574
+    title: Hiding in Plain Sight (with Natalie Haynes and Ayesha Hazarika)
+  - bytes: 15326637
+    date: '2026-11-12T00:00:00Z'
+    file: media/strong-message-here/02f3cce5e13c.mp3
+    id: urn:bbc:podcast:m003417p
+    seconds: 1915
+    title: The Same Old Arguments (with Tim Shipman)
+the-bugle:
+  checked: '2026-11-28T03:00:11+00:00'
+  episodes:
+  - bytes: 22171524
+    date: '2026-11-26T12:00:00+00:00'
+    file: media/the-bugle/6a35ef3b5283.mp3
+    id: 6b077569e1f92a03aaf00446
+    seconds: 2771
+    title: With Friends like Putin who Needs Enemies?
+  - bytes: 24906649
+    date: '2026-11-18T16:00:00+00:00'
+    file: media/the-bugle/f426c5267751.mp3
+    id: 6afdbe4a21fa6314af3a76b5
+    seconds: 3113
+    title: Functioning Planet or Total F*cking Chaos?
+  - bytes: 21201650
+    date: '2026-11-11T14:00:00+00:00'
+    file: media/the-bugle/8fa9e152f9aa.mp3
+    id: 6af455460da1a3089e9fea6e
+    seconds: 2650
+    title: Even the voices in Trump's head aren't talking to him anymore!
+the-rest-is-politics-us:
+  checked: '2026-11-28T03:00:12+00:00'
+  episodes:
+  - bytes: 21267270
+    date: '2026-11-26T17:50:00+00:00'
+    file: media/the-rest-is-politics-us/871ecf8eed58.mp3
+    id: 2859b6ee-e988-11f1-82f4-57383eb58bee
+    seconds: 2658
+    title: '246. RFK Jr: The Man Who Brought Back Measles?'
+  - bytes: 19221986
+    date: '2026-11-23T18:00:00+00:00'
+    file: media/the-rest-is-politics-us/3f101dc45777.mp3
+    id: 1c5d23b0-e75a-11f1-bc1b-331c5c3175be
+    seconds: 2402
+    title: 245. The Truth Behind Iran’s Dirty Bomb Plot
+  - bytes: 16833559
+    date: '2026-11-19T17:40:00+00:00'
+    file: media/the-rest-is-politics-us/f6a635d940fb.mp3
+    id: a19ef826-e43c-11f1-b63e-ebadaf9530cf
+    seconds: 2104
+    title: '244. Trump, Xi and Putin: Who Really Won?'

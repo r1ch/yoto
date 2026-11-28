@@ -1,0 +1,19 @@
+---
+name: Private Eye
+slug: private-eye
+catchup: true
+date: '2026-11-10T16:31:34+00:00'
+episodes:
+- id: audioboom-01a1c64c-f52d-727c-a788-d253e645e2ff
+  title: '195: Branded'
+  date: '2026-11-10T16:31:34+00:00'
+  path: /media/private-eye/e58a19f7363e.mp3
+  seconds: 2258
+  bytes: 18065702
+- id: audioboom-01a17e41-8b8e-7095-8b78-8507843452dc
+  title: '194: Hot Cheeks and Cheesecake'
+  date: '2026-10-27T16:46:27+00:00'
+  path: /media/private-eye/551c3b4435ef.mp3
+  seconds: 2694
+  bytes: 21556079
+---

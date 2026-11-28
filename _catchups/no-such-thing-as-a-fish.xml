@@ -1,0 +1,19 @@
+---
+name: No Such Thing As A Fish
+slug: no-such-thing-as-a-fish
+catchup: true
+date: '2026-11-23T00:00:00+00:00'
+episodes:
+- id: audioboom-01a1fb93-a567-7d54-8ed0-35844d01bf57
+  title: 'Little Fish: Star-crossed blubber'
+  date: '2026-11-23T00:00:00+00:00'
+  path: /media/no-such-thing-as-a-fish/27c229e3f6e7.mp3
+  seconds: 1913
+  bytes: 15307172
+- id: audioboom-01a1f46c-75d0-7d6f-bc80-98d38bee810c
+  title: No Such Thing As An Oat Milk Newspaper
+  date: '2026-11-19T23:55:00+00:00'
+  path: /media/no-such-thing-as-a-fish/90c42dd27a2f.mp3
+  seconds: 3593
+  bytes: 28749366
+---
